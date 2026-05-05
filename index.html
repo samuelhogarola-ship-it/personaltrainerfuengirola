@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal Trainer Fuengirola – Sorvali</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+  <div class="logo-wrap">
+    <div class="logo-mark">PT</div>
+    <div class="logo-name">
+      <span class="logo-main" data-key="logo-main">Personal Trainer</span>
+      <span class="logo-sub">Fuengirola · Sorvali</span>
+    </div>
+  </div>
+  <div class="header-right">
+    <nav>
+      <a href="#servicios" data-key="nav-services">Servicios</a>
+      <a href="#sobre-mi" data-key="nav-about">Sobre mí</a>
+      <a href="#contacto" data-key="nav-contact">Contacto</a>
+    </nav>
+    <div class="lang">
+      <button onclick="setLang('es')" id="btn-es" class="active">🇪🇸</button>
+      <button onclick="setLang('en')" id="btn-en">🇬🇧</button>
+      <button onclick="setLang('fi')" id="btn-fi">🇫🇮</button>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-bg-text" aria-hidden="true">TRAIN</div>
+  <div class="hero-content">
+    <p class="hero-eyebrow" data-key="hero-eyebrow">Personal Trainer · Fuengirola</p>
+    <h1>
+      <span data-key="hero-h1-line1">Transforma</span><br>
+      <span class="hero-accent" data-key="hero-h1-line2">tu cuerpo.</span>
+    </h1>
+    <p class="hero-sub" data-key="hero-sub">Sorvali — entrenador personal certificado. Programas de entrenamiento diseñados para resultados reales.</p>
+    <a href="https://api.whatsapp.com/send/?phone=34624043365&text&type=phone_number&app_absent=0" class="hero-cta" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      <span data-key="hero-btn">Empieza hoy por WhatsApp</span>
+    </a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat">
+      <span class="stat-num">100%</span>
+      <span class="stat-label" data-key="stat-1">Personalizado</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <span class="stat-num">0</span>
+      <span class="stat-label" data-key="stat-2">Excusas</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <span class="stat-num">∞</span>
+      <span class="stat-label" data-key="stat-3">Resultados</span>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="sobre-mi">
+  <div class="about-visual">
+    <div class="about-badge">
+      <span class="badge-num">+5</span>
+      <span class="badge-label" data-key="badge-label">años de experiencia</span>
+    </div>
+  </div>
+  <div class="about-text reveal">
+    <p class="section-tag" data-key="about-tag">Tu entrenador</p>
+    <h2 class="section-title" data-key="about-title">Sorvali —<br>Resultados reales,<br>sin excusas.</h2>
+    <p data-key="about-p1">Entrenador personal certificado especializado en fuerza, acondicionamiento físico y transformación corporal. Mi método combina ciencia y dedicación para llevarte más lejos de lo que crees posible.</p>
+    <p data-key="about-p2">Cada programa es 100% personalizado: analizamos tu punto de partida, tus objetivos y diseñamos el camino más eficiente para conseguirlos.</p>
+    <div class="cert-badge" data-key="about-cert">Certificado – NSCA · INEF</div>
+  </div>
+</section>
+
+<section class="services-section" id="servicios">
+  <div class="services-header reveal">
+    <p class="section-tag" data-key="services-tag">Programas</p>
+    <h2 class="section-title" data-key="services-title">Servicios</h2>
+  </div>
+  <div class="services-grid" id="services-grid"></div>
+</section>
+
+<section class="cta-strip">
+  <div class="cta-inner">
+    <h2 data-key="cta-title">¿Listo para empezar?</h2>
+    <p data-key="cta-sub">Escríbeme por WhatsApp y empezamos esta semana.</p>
+    <a href="https://api.whatsapp.com/send/?phone=34624043365&text&type=phone_number&app_absent=0" class="cta-btn" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      <span data-key="cta-btn">Escribir por WhatsApp</span>
+    </a>
+  </div>
+</section>
+
+<section class="info-section" id="contacto">
+  <div class="info-block reveal">
+    <p class="section-tag" data-key="info-tag1">Dónde entrenar</p>
+    <h3 data-key="info-title1">Ubicación</h3>
+    <div class="info-item">
+      <span class="ico">📍</span>
+      <p><strong data-key="info-address-label">Dirección</strong>Fuengirola, Málaga</p>
+    </div>
+    <div class="info-item">
+      <span class="ico">💬</span>
+      <p><strong>WhatsApp</strong><a href="https://api.whatsapp.com/send/?phone=34624043365&text&type=phone_number&app_absent=0">+34 624 04 33 65</a></p>
+    </div>
+  </div>
+  <div class="info-block reveal">
+    <p class="section-tag" data-key="info-tag2">Horario</p>
+    <h3 data-key="info-title2">Disponibilidad</h3>
+    <div class="info-item">
+      <span class="ico">🕐</span>
+      <p data-key="info-hours"><strong>Lunes – Viernes</strong>7:00 – 21:00<br><strong>Sábados</strong>9:00 – 14:00</p>
+    </div>
+    <div class="info-item">
+      <span class="ico">📱</span>
+      <p data-key="info-note">Escríbeme por WhatsApp para reservar tu sesión y confirmar disponibilidad.</p>
+    </div>
+    <a href="https://api.whatsapp.com/send/?phone=34624043365&text&type=phone_number&app_absent=0" class="book-btn" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      <span data-key="info-btn">Reservar sesión</span>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-left">Personal Trainer Fuengirola · Sorvali</div>
+  <div class="footer-right">© 2026 · Todos los derechos reservados</div>
+</footer>
+
+<script>
+const WA = 'https://api.whatsapp.com/send/?phone=34624043365&text&type=phone_number&app_absent=0';
+
+const WA_SVG = `<svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>`;
+
+/* ── SERVICES DATA ── */
+const services = {
+  es: [
+    {
+      icon: '💪',
+      title: 'Entrenamiento Individual',
+      desc: 'Sesiones personalizadas 1 a 1 adaptadas a tus objetivos, tu condición física y tu ritmo de vida. Sin plantillas genéricas — solo lo que funciona para ti.',
+      features: [
+        'Evaluación física inicial incluida',
+        'Programa 100% personalizado',
+        'Seguimiento y ajustes continuos',
+      ],
+      price: '50 €',
+      unit: '/ sesión',
+      btnText: 'Reservar por WhatsApp',
+    }
+  ],
+  en: [
+    {
+      icon: '💪',
+      title: 'Personal Training',
+      desc: '1-to-1 sessions tailored to your goals, fitness level and lifestyle. No generic templates — only what actually works for you.',
+      features: [
+        'Free initial fitness assessment',
+        '100% personalised programme',
+        'Ongoing tracking and adjustments',
+      ],
+      price: '50 €',
+      unit: '/ session',
+      btnText: 'Book via WhatsApp',
+    }
+  ],
+  fi: [
+    {
+      icon: '💪',
+      title: 'Yksilövalmennus',
+      desc: 'Henkilökohtaiset 1-1-sessiot, jotka on räätälöity tavoitteidesi, fyysisen kuntosi ja elämäntapasi mukaan. Ei geneerisiä malleja — vain se, mikä toimii juuri sinulle.',
+      features: [
+        'Ilmainen alkukartoitus',
+        '100% yksilöllinen ohjelma',
+        'Jatkuva seuranta ja säätäminen',
+      ],
+      price: '50 €',
+      unit: '/ sessio',
+      btnText: 'Varaa WhatsAppilla',
+    }
+  ]
+};
+
+/* ── TRANSLATIONS ── */
+const translations = {
+  es: {
+    'logo-main': 'Personal Trainer',
+    'nav-services': 'Servicios',
+    'nav-about': 'Sobre mí',
+    'nav-contact': 'Contacto',
+    'hero-eyebrow': 'Personal Trainer · Fuengirola',
+    'hero-h1-line1': 'Transforma',
+    'hero-h1-line2': 'tu cuerpo.',
+    'hero-sub': 'Sorvali — entrenador personal certificado. Programas de entrenamiento diseñados para resultados reales.',
+    'hero-btn': 'Empieza hoy por WhatsApp',
+    'stat-1': 'Personalizado',
+    'stat-2': 'Excusas',
+    'stat-3': 'Resultados',
+    'badge-label': 'años de experiencia',
+    'about-tag': 'Tu entrenador',
+    'about-title': 'Sorvali —<br>Resultados reales,<br>sin excusas.',
+    'about-p1': 'Entrenador personal certificado especializado en fuerza, acondicionamiento físico y transformación corporal. Mi método combina ciencia y dedicación para llevarte más lejos de lo que crees posible.',
+    'about-p2': 'Cada programa es 100% personalizado: analizamos tu punto de partida, tus objetivos y diseñamos el camino más eficiente para conseguirlos.',
+    'about-cert': 'Certificado – NSCA · INEF',
+    'services-tag': 'Programas',
+    'services-title': 'Servicios',
+    'cta-title': '¿Listo para empezar?',
+    'cta-sub': 'Escríbeme por WhatsApp y empezamos esta semana.',
+    'cta-btn': 'Escribir por WhatsApp',
+    'info-tag1': 'Dónde entrenar',
+    'info-title1': 'Ubicación',
+    'info-address-label': 'Dirección',
+    'info-tag2': 'Horario',
+    'info-title2': 'Disponibilidad',
+    'info-hours': '<strong>Lunes – Viernes</strong>7:00 – 21:00<br><strong>Sábados</strong>9:00 – 14:00',
+    'info-note': 'Escríbeme por WhatsApp para reservar tu sesión y confirmar disponibilidad.',
+    'info-btn': 'Reservar sesión',
+  },
+  en: {
+    'logo-main': 'Personal Trainer',
+    'nav-services': 'Services',
+    'nav-about': 'About',
+    'nav-contact': 'Contact',
+    'hero-eyebrow': 'Personal Trainer · Fuengirola',
+    'hero-h1-line1': 'Transform',
+    'hero-h1-line2': 'your body.',
+    'hero-sub': 'Sorvali — certified personal trainer. Training programmes built for real results.',
+    'hero-btn': 'Start today on WhatsApp',
+    'stat-1': 'Personalised',
+    'stat-2': 'Excuses',
+    'stat-3': 'Results',
+    'badge-label': 'years of experience',
+    'about-tag': 'Your trainer',
+    'about-title': 'Sorvali —<br>Real results,<br>no excuses.',
+    'about-p1': 'Certified personal trainer specialising in strength, physical conditioning and body transformation. My method combines science and commitment to take you further than you thought possible.',
+    'about-p2': 'Every programme is 100% personalised: we assess your starting point, define your goals and map out the most efficient route to reach them.',
+    'about-cert': 'Certified – NSCA · INEF',
+    'services-tag': 'Programmes',
+    'services-title': 'Services',
+    'cta-title': 'Ready to start?',
+    'cta-sub': 'Message me on WhatsApp and we begin this week.',
+    'cta-btn': 'Message on WhatsApp',
+    'info-tag1': 'Where to train',
+    'info-title1': 'Location',
+    'info-address-label': 'Address',
+    'info-tag2': 'Schedule',
+    'info-title2': 'Availability',
+    'info-hours': '<strong>Monday – Friday</strong>7:00 – 21:00<br><strong>Saturdays</strong>9:00 – 14:00',
+    'info-note': 'Message me on WhatsApp to book your session and confirm availability.',
+    'info-btn': 'Book a session',
+  },
+  fi: {
+    'logo-main': 'Personal Trainer',
+    'nav-services': 'Palvelut',
+    'nav-about': 'Tietoa minusta',
+    'nav-contact': 'Yhteystiedot',
+    'hero-eyebrow': 'Personal Trainer · Fuengirola',
+    'hero-h1-line1': 'Muuta',
+    'hero-h1-line2': 'kehoasi.',
+    'hero-sub': 'Sorvali — sertifioitu personal trainer. Harjoitusohjelmat, jotka tuottavat todellisia tuloksia.',
+    'hero-btn': 'Aloita tänään WhatsAppissa',
+    'stat-1': 'Yksilöllinen',
+    'stat-2': 'Tekosyitä',
+    'stat-3': 'Tuloksia',
+    'badge-label': 'vuoden kokemus',
+    'about-tag': 'Valmentajasi',
+    'about-title': 'Sorvali —<br>Todellisia tuloksia,<br>ei tekosyitä.',
+    'about-p1': 'Sertifioitu personal trainer, joka on erikoistunut voimaharjoitteluun, fyysiseen kuntoon ja kehon muokkaukseen. Metodini yhdistää tieteen ja sitoutumisen — vien sinut pidemmälle kuin uskoitkaan mahdolliseksi.',
+    'about-p2': 'Jokainen ohjelma on 100% yksilöllinen: kartoitamme lähtötilanteesi, määrittelemme tavoitteesi ja luomme tehokkaimman reitin niiden saavuttamiseksi.',
+    'about-cert': 'Sertifioitu – NSCA · INEF',
+    'services-tag': 'Ohjelmat',
+    'services-title': 'Palvelut',
+    'cta-title': 'Valmis aloittamaan?',
+    'cta-sub': 'Lähetä viesti WhatsAppissa — aloitetaan tällä viikolla.',
+    'cta-btn': 'Kirjoita WhatsAppissa',
+    'info-tag1': 'Missä treenaataan',
+    'info-title1': 'Sijainti',
+    'info-address-label': 'Osoite',
+    'info-tag2': 'Aikataulu',
+    'info-title2': 'Saatavuus',
+    'info-hours': '<strong>Maanantai – Perjantai</strong>7:00 – 21:00<br><strong>Lauantait</strong>9:00 – 14:00',
+    'info-note': 'Lähetä viesti WhatsAppissa varmistaaksesi saatavuuden ja sovitaksesi paras aika.',
+    'info-btn': 'Varaa sessio',
+  }
+};
+
+/* ── RENDER SERVICES ── */
+function renderServices(lang) {
+  const grid = document.getElementById('services-grid');
+  grid.innerHTML = services[lang].map(s => `
+    <div class="service-card reveal">
+      <span class="service-icon">${s.icon}</span>
+      <h3>${s.title}</h3>
+      <p class="service-desc">${s.desc}</p>
+      <ul class="service-features">
+        ${s.features.map(f => `<li>${f}</li>`).join('')}
+      </ul>
+      <div class="service-price">${s.price}<span>${s.unit}</span></div>
+      <a href="${WA}" class="book-btn" target="_blank" rel="noopener noreferrer">
+        ${WA_SVG}<span>${s.btnText}</span>
+      </a>
+    </div>
+  `).join('');
+  observeReveal();
+}
+
+/* ── LANGUAGE SWITCH ── */
+function setLang(lang) {
+  const t = translations[lang];
+  document.querySelectorAll('[data-key]').forEach(el => {
+    const v = t[el.dataset.key];
+    if (v !== undefined) el.innerHTML = v;
+  });
+  document.querySelectorAll('.lang button').forEach(b => b.classList.remove('active'));
+  document.getElementById('btn-' + lang).classList.add('active');
+  document.documentElement.lang = lang;
+  renderServices(lang);
+}
+
+/* ── SCROLL REVEAL ── */
+function observeReveal() {
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal:not(.visible)').forEach(el => observer.observe(el));
+}
+
+/* ── INIT ── */
+renderServices('es');
+observeReveal();
+</script>
+</body>
+</html>
