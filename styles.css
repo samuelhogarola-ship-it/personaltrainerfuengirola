@@ -57,6 +57,13 @@ nav a {
   font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; transition: color 0.2s;
 }
 nav a:hover { color: var(--yellow); }
+.nav-soon { cursor: default; opacity: 0.4 !important; }
+.nav-soon:hover { color: rgba(255,255,255,0.6) !important; }
+.soon-tag {
+  font-size: 0.55rem; font-weight: 600; letter-spacing: 0.12em;
+  background: var(--yellow); color: var(--black);
+  padding: 1px 5px; vertical-align: middle; margin-left: 4px;
+}
 
 .lang { display: flex; gap: 8px; }
 .lang button {
