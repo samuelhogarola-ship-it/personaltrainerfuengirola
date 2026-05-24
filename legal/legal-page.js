@@ -2,6 +2,75 @@ import { createLegalPageMarkup } from './legal-core.js';
 
 const LEGAL_STORAGE_KEY = 'ptfuengirola-lang';
 const legalRoot = document.getElementById('legal-root');
+const cookieBannerCopy = {
+  es: {
+    eyebrow: 'Cookies',
+    title: 'Cookies y preferencias',
+    body: 'Puedes aceptar las cookies necesarias o abrir el panel de elección. La política completa está en la página legal existente.',
+    accept: 'Aceptar',
+    configure: 'Configurar',
+    more: 'Ver política de cookies',
+    panelTitle: 'Panel de cookies',
+    panelBody: 'Aquí puedes decidir cómo guardar las preferencias del sitio. La información legal completa sigue estando en la página de cookies.',
+    necessaryTitle: 'Cookies necesarias',
+    necessaryBody: 'Mantienen el idioma, la navegación y el funcionamiento básico del sitio.',
+    optionalTitle: 'Cookies opcionales',
+    optionalBody: 'Actualmente esta web no activa analítica ni publicidad por defecto.',
+    alwaysOn: 'Siempre activas',
+    offByDefault: 'Desactivadas',
+    saveNecessary: 'Guardar solo necesarias',
+    acceptAll: 'Aceptar todas',
+    close: 'Cerrar panel',
+    imageAlt: 'Cookie del banner de consentimiento',
+  },
+  en: {
+    eyebrow: 'Cookies',
+    title: 'Cookies and preferences',
+    body: 'You can accept necessary cookies or open the preference panel. The full policy remains on the existing legal page.',
+    accept: 'Accept',
+    configure: 'Configure',
+    more: 'View cookie policy',
+    panelTitle: 'Cookie panel',
+    panelBody: 'Here you can decide how the site stores preferences. The full legal information remains on the existing cookie page.',
+    necessaryTitle: 'Necessary cookies',
+    necessaryBody: 'They keep language, navigation and the basic functioning of the site.',
+    optionalTitle: 'Optional cookies',
+    optionalBody: 'This website currently does not enable analytics or advertising by default.',
+    alwaysOn: 'Always on',
+    offByDefault: 'Disabled',
+    saveNecessary: 'Save necessary only',
+    acceptAll: 'Accept all',
+    close: 'Close panel',
+    imageAlt: 'Cookie consent banner image',
+  },
+  fi: {
+    eyebrow: 'Evasteet',
+    title: 'Evasteet ja asetukset',
+    body: 'Voit hyväksyä välttämättömät evästeet tai avata valintapaneelin. Täysi käytäntö on olemassa olevalla lakisivulla.',
+    accept: 'Hyvaksy',
+    configure: 'Asetukset',
+    more: 'Katso evastekaytanto',
+    panelTitle: 'Evastepaneeli',
+    panelBody: 'Täällä voit päättää, miten sivusto tallentaa asetuksia. Täydet lakitiedot ovat edelleen olemassa olevalla evästesivulla.',
+    necessaryTitle: 'Valttamattomat evasteet',
+    necessaryBody: 'Ne pitävät kielen, navigoinnin ja sivuston perustoiminnot toiminnassa.',
+    optionalTitle: 'Valinnaiset evasteet',
+    optionalBody: 'Tämä sivusto ei tällä hetkellä aktivoi analytiikkaa tai mainontaa oletuksena.',
+    alwaysOn: 'Aina paalla',
+    offByDefault: 'Pois paalta',
+    saveNecessary: 'Tallenna vain valttamattomat',
+    acceptAll: 'Hyvaksy kaikki',
+    close: 'Sulje paneeli',
+    imageAlt: 'Evastebannerin kuva',
+  },
+};
+const cookieBanner = window.initCookieBanner({
+  mountSelector: '#cookie-banner-root',
+  initialLang: new URLSearchParams(window.location.search).get('lang') || window.localStorage.getItem(LEGAL_STORAGE_KEY) || 'es',
+  copyByLang: cookieBannerCopy,
+  assetPath: '../assets/cookie.webp',
+  legalHrefBuilder: (lang) => `/legal?lang=${lang}#cookies`,
+});
 
 function getMainSiteUrl() {
   const mainUrl = new URL('../index.html', window.location.href);
@@ -253,6 +322,7 @@ function setLang(lang) {
   updateHomeLinks(safeLang);
   setActiveLang(safeLang);
   renderLegalContent(safeLang);
+  cookieBanner.setLang(safeLang);
 
   const nextUrl = new URL(window.location.href);
   nextUrl.searchParams.set('lang', safeLang);
