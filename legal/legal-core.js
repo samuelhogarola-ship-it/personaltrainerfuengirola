@@ -27,6 +27,12 @@ function renderFieldValue(value, options = {}) {
     return `<img class="legal-inline-image" src="${escapeHtml(value.src)}" alt="${alt}"${width}${height} loading="eager" decoding="async">`;
   }
 
+  if (value && typeof value === 'object' && value.type === 'link' && value.href) {
+    const href = escapeHtml(value.href);
+    const label = escapeHtml(value.label || value.href);
+    return `<a href="${href}" target="_blank" rel="noopener noreferrer">${label}</a>`;
+  }
+
   return escapeHtml(value);
 }
 

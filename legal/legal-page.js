@@ -3,6 +3,11 @@ import { createLegalPageMarkup } from './legal-core.js';
 const LEGAL_STORAGE_KEY = 'ptfuengirola-lang';
 const legalRoot = document.getElementById('legal-root');
 
+function getMainSiteUrl() {
+  const mainUrl = new URL('../index.html', window.location.href);
+  return `${mainUrl.origin}/`;
+}
+
 const contentByLang = {
   es: {
     pageTitle: 'Información Legal · Personal Trainer Fuengirola – Sorvali',
@@ -224,7 +229,14 @@ function updateStaticCopy(lang) {
 }
 
 function renderLegalContent(lang) {
-  const copy = contentByLang[lang].legal;
+  const copy = {
+    ...contentByLang[lang].legal,
+    siteUrl: {
+      type: 'link',
+      href: getMainSiteUrl(),
+      label: getMainSiteUrl(),
+    },
+  };
   legalRoot.innerHTML = createLegalPageMarkup(copy);
 }
 
