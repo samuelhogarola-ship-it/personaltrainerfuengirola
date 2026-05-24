@@ -12,13 +12,13 @@
 <body>
 
 <header>
-  <div class="logo-wrap">
+  <a href="./index.html" class="logo-wrap" aria-label="Ir a la página principal">
     <div class="logo-mark">PT</div>
     <div class="logo-name">
       <span class="logo-main" data-key="logo-main">Personal Trainer</span>
       <span class="logo-sub">Fuengirola · Sorvali</span>
     </div>
-  </div>
+  </a>
   <div class="header-right">
     <nav>
       <a href="#servicios" data-key="nav-services">Servicios</a>
@@ -134,8 +134,17 @@
 </section>
 
 <footer>
-  <div class="footer-left">Personal Trainer Fuengirola · Sorvali</div>
-  <div class="footer-right">© 2026 · Todos los derechos reservados</div>
+  <div class="footer-top">
+    <div class="footer-left">Personal Trainer Fuengirola · Sorvali</div>
+    <div class="footer-right">
+      <a href="/legal" data-legal-link>Información legal</a>
+      <span>© 2026 · Todos los derechos reservados</span>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-studio-label">Desarrollado y mantenido por</span>
+    <a href="https://webfuengirola.com" class="footer-studio-btn" target="_blank" rel="noopener noreferrer">Web Fuengirola Studio</a>
+  </div>
 </footer>
 
 <script>
@@ -331,6 +340,10 @@ function setLang(lang) {
   document.querySelectorAll('.lang button').forEach(b => b.classList.remove('active'));
   document.getElementById('btn-' + lang).classList.add('active');
   document.documentElement.lang = lang;
+  window.localStorage.setItem('ptfuengirola-lang', lang);
+  document.querySelectorAll('[data-legal-link]').forEach(link => {
+    link.setAttribute('href', `/legal?lang=${lang}`);
+  });
   renderServices(lang);
 }
 
@@ -343,7 +356,8 @@ function observeReveal() {
 }
 
 /* ── INIT ── */
-renderServices('es');
+const activeLang = new URLSearchParams(window.location.search).get('lang') || window.localStorage.getItem('ptfuengirola-lang') || 'es';
+setLang(translations[activeLang] ? activeLang : 'es');
 observeReveal();
 </script>
 </body>
