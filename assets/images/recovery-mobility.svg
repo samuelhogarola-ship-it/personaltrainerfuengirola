@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="img" aria-labelledby="title desc">
+  <title id="title">Movilidad y recuperación</title>
+  <desc id="desc">Ilustración abstracta de trabajo de movilidad y control corporal.</desc>
+  <rect width="1200" height="900" fill="#090909"/>
+  <rect x="34" y="34" width="1132" height="832" rx="34" fill="none" stroke="#f5c800" stroke-width="8"/>
+  <path d="M262 714c120-48 214-141 285-278 37-72 89-125 156-160 48-25 102-40 162-45" fill="none" stroke="#f5c800" stroke-width="13" stroke-linecap="round"/>
+  <circle cx="784" cy="200" r="74" fill="none" stroke="#f5c800" stroke-width="10"/>
+  <path d="M472 748c-18-69-18-129 1-182 19-54 57-97 115-127" fill="none" stroke="#f5c800" stroke-width="10" stroke-linecap="round"/>
+  <path d="M300 640c71-6 129 8 174 41" fill="none" stroke="#f5c800" stroke-width="9" stroke-linecap="round"/>
+  <path d="M699 364c31 46 78 75 143 87 61 12 111 38 149 80" fill="none" stroke="#f5c800" stroke-width="10" stroke-linecap="round"/>
+  <path d="M860 585c26 68 73 122 142 162" fill="none" stroke="#f5c800" stroke-width="9" stroke-linecap="round"/>
+  <path d="M162 256c80 0 154 17 222 52" fill="none" stroke="#f5c800" stroke-width="9" stroke-linecap="round"/>
+  <path d="M192 310c53 53 79 116 79 190" fill="none" stroke="#f5c800" stroke-width="9" stroke-linecap="round"/>
+</svg>

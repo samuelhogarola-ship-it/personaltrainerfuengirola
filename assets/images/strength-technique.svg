@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="img" aria-labelledby="title desc">
+  <title id="title">Trabajo de fuerza y técnica</title>
+  <desc id="desc">Ilustración abstracta de una barra y líneas de movimiento técnico.</desc>
+  <rect width="1200" height="900" fill="#090909"/>
+  <rect x="34" y="34" width="1132" height="832" rx="34" fill="none" stroke="#f5c800" stroke-width="8"/>
+  <path d="M164 448h872" fill="none" stroke="#f5c800" stroke-width="12" stroke-linecap="round"/>
+  <rect x="206" y="392" width="40" height="112" rx="10" fill="none" stroke="#f5c800" stroke-width="10"/>
+  <rect x="262" y="378" width="38" height="140" rx="10" fill="none" stroke="#f5c800" stroke-width="10"/>
+  <rect x="900" y="378" width="38" height="140" rx="10" fill="none" stroke="#f5c800" stroke-width="10"/>
+  <rect x="954" y="392" width="40" height="112" rx="10" fill="none" stroke="#f5c800" stroke-width="10"/>
+  <path d="M392 742c46-34 81-90 95-152l32-126c14-55 45-99 89-131 33-24 70-39 112-46" fill="none" stroke="#f5c800" stroke-width="12" stroke-linecap="round"/>
+  <path d="M576 252c34-65 96-106 165-106 90 0 163 69 163 153 0 50-25 97-67 128" fill="none" stroke="#f5c800" stroke-width="10" stroke-linecap="round"/>
+  <path d="M304 222c70-28 137-40 200-34" fill="none" stroke="#f5c800" stroke-width="9" stroke-linecap="round"/>
+  <path d="M698 649c59 24 110 61 154 111" fill="none" stroke="#f5c800" stroke-width="9" stroke-linecap="round"/>
+</svg>

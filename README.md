@@ -1,44 +1,38 @@
 # Personal Trainer Fuengirola – Sorvali
 
-Static website for a personal trainer based in Fuengirola, Málaga.
+Static SEO-focused website for a personal trainer based in Fuengirola, Málaga.
 
 ## Stack
 
-Pure HTML + CSS. No build step, no dependencies.
+Pure HTML, CSS and a tiny JS helper for scroll reveal and footer year.
 
 ## Structure
 
+```text
+/index.html                                      Home
+/sobre-sorvali/index.html                        About page
+/servicios/entrenamiento-personal-fuengirola/   Main service page
+/precios/index.html                              Pricing page
+/preguntas-frecuentes/index.html                 FAQ page
+/blog/                                           Blog hub + evergreen articles
+/legal/index.html                                Legal page
+/assets/images/                                  Site-owned SEO/supporting visuals
+/styles.css                                      Shared styles
+/site.js                                         Small progressive-enhancement script
+/robots.txt                                      Crawl directives
+/sitemap.xml                                     Sitemap
 ```
-index.html        – landing page, multilingual copy and SEO metadata
-cookie-banner.js  – cookie banner and preference panel
-styles.css        – all shared styles
-legal/            – legal page shell + legal content adapter
-assets/           – local assets for the public site
-```
 
-## Legal page
+## SEO notes
 
-`/legal/` renders as a normal HTML page and keeps the app's own header/footer.
-
-Current status:
-
-- `legal/legal-page.js` owns the multilingual copy and dynamic SEO metadata for the legal route.
-- `legal/legal-core.js` provides the shared legal markup renderer used by this static site.
-- `legal/legal-core.css` contains the route-specific legal styles layered on top of `styles.css`.
-
-## SEO
-
-- Home and legal routes expose dynamic canonical, Open Graph, Twitter and JSON-LD metadata.
-- Language switching is handled with `?lang=es|en|fi`, and alternate language links are updated in the document head.
-- Absolute URLs are derived from the current deployment origin, so the site can move between staging and production without hardcoded domain edits.
-
-## Languages
-
-ES 🇪🇸 · EN 🇬🇧 · FI 🇫🇮 — switched client-side via the translation maps in `index.html` and `legal/legal-page.js`.
+- The main commercial content is now rendered directly in HTML instead of being injected with JavaScript.
+- Each public page includes title, meta description, canonical, Open Graph and JSON-LD.
+- The current canonical base is set to `https://personaltrainerfuengirola.com`.
+- If the production domain differs, update canonicals, `og:url`, `robots.txt` and `sitemap.xml`.
 
 ## Deploy
 
-Any static host works — drag the folder into [Netlify Drop](https://app.netlify.com/drop), Cloudflare Pages, or GitHub Pages.
+Any static host works — Netlify, Cloudflare Pages, GitHub Pages or similar.
 
 ## Contact
 

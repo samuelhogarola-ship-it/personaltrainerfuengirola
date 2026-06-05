@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="img" aria-labelledby="title desc">
+  <title id="title">Espacio de entrenamiento en Fuengirola</title>
+  <desc id="desc">Ilustración abstracta de un espacio de entrenamiento con guiños mediterráneos.</desc>
+  <rect width="1200" height="900" fill="#090909"/>
+  <rect x="34" y="34" width="1132" height="832" rx="34" fill="none" stroke="#f5c800" stroke-width="8"/>
+  <path d="M112 710h976" fill="none" stroke="#f5c800" stroke-width="10" stroke-linecap="round"/>
+  <path d="M166 708V316h216v392" fill="none" stroke="#f5c800" stroke-width="10" stroke-linecap="round"/>
+  <path d="M818 708V286h214v422" fill="none" stroke="#f5c800" stroke-width="10" stroke-linecap="round"/>
+  <rect x="486" y="538" width="220" height="140" rx="26" fill="none" stroke="#f5c800" stroke-width="10"/>
+  <path d="M496 538l96-120 104 120" fill="none" stroke="#f5c800" stroke-width="10" stroke-linecap="round"/>
+  <path d="M239 430c60-19 101-56 124-109 29 52 71 84 128 96" fill="none" stroke="#f5c800" stroke-width="9" stroke-linecap="round"/>
+  <path d="M780 675c43-86 48-162 14-228-30-58-28-112 8-161 36 47 80 76 133 88" fill="none" stroke="#f5c800" stroke-width="10" stroke-linecap="round"/>
+  <path d="M948 252c34 12 58 31 73 57" fill="none" stroke="#f5c800" stroke-width="8" stroke-linecap="round"/>
+  <path d="M140 210c95-44 203-54 324-31 103 20 172 52 204 95" fill="none" stroke="#f5c800" stroke-width="9" stroke-linecap="round"/>
+  <path d="M740 180c120-8 220 20 302 86" fill="none" stroke="#f5c800" stroke-width="9" stroke-linecap="round"/>
+</svg>

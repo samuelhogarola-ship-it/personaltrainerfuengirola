@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="img" aria-labelledby="title desc">
+  <title id="title">Retrato ilustrado de entrenadora personal</title>
+  <desc id="desc">Ilustración abstracta de una entrenadora personal en tonos negro y dorado.</desc>
+  <rect width="1200" height="900" fill="#090909"/>
+  <rect x="34" y="34" width="1132" height="832" rx="34" fill="none" stroke="#f5c800" stroke-width="8"/>
+  <circle cx="770" cy="250" r="180" fill="none" stroke="#f5c800" stroke-width="10" opacity="0.95"/>
+  <path d="M650 318c18-78 88-128 171-128 83 0 143 49 152 121 9 76-42 149-119 171-44 13-72 38-95 85l-65 130c-17 34-52 56-90 56h-46" fill="none" stroke="#f5c800" stroke-width="14" stroke-linecap="round"/>
+  <path d="M544 770c46-30 79-84 90-146l18-111c10-60-12-118-57-159-36-33-83-51-135-51-108 0-196 83-215 204" fill="none" stroke="#f5c800" stroke-width="12" stroke-linecap="round"/>
+  <path d="M233 602c24-70 56-120 98-151 53-40 123-61 206-61" fill="none" stroke="#f5c800" stroke-width="10" stroke-linecap="round" opacity="0.9"/>
+  <path d="M347 760c11-103 3-187-24-252" fill="none" stroke="#f5c800" stroke-width="9" stroke-linecap="round"/>
+  <path d="M866 561c62 38 97 88 116 172" fill="none" stroke="#f5c800" stroke-width="10" stroke-linecap="round" opacity="0.9"/>
+  <path d="M948 744c-42-58-84-121-108-194-17-52-20-104-8-157" fill="none" stroke="#f5c800" stroke-width="9" stroke-linecap="round"/>
+  <path d="M685 748c82-31 140-87 176-171" fill="none" stroke="#f5c800" stroke-width="10" stroke-linecap="round"/>
+</svg>

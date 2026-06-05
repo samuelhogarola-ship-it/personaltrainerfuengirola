@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="img" aria-labelledby="title desc">
+  <title id="title">Sesión de entrenamiento personal</title>
+  <desc id="desc">Dos figuras abstractas representan una sesión individual de entrenamiento personal.</desc>
+  <rect width="1200" height="900" fill="#090909"/>
+  <rect x="34" y="34" width="1132" height="832" rx="34" fill="none" stroke="#f5c800" stroke-width="8"/>
+  <path d="M300 760c28-139 22-245-17-320-30-57-31-108-3-152 36-56 109-86 191-79 66 6 116 31 149 77 32 44 40 96 25 154l-40 154c-17 67-56 122-111 166" fill="none" stroke="#f5c800" stroke-width="12" stroke-linecap="round"/>
+  <circle cx="473" cy="208" r="101" fill="none" stroke="#f5c800" stroke-width="10"/>
+  <path d="M691 752c-5-112 10-207 46-284 33-72 86-125 158-157 85-39 170-37 235 8" fill="none" stroke="#f5c800" stroke-width="12" stroke-linecap="round"/>
+  <circle cx="904" cy="220" r="88" fill="none" stroke="#f5c800" stroke-width="10"/>
+  <path d="M832 470c72 5 138 29 198 74" fill="none" stroke="#f5c800" stroke-width="9" stroke-linecap="round"/>
+  <path d="M388 454c54 20 97 52 130 96" fill="none" stroke="#f5c800" stroke-width="9" stroke-linecap="round"/>
+  <path d="M526 610h210" fill="none" stroke="#f5c800" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="490" cy="610" r="38" fill="none" stroke="#f5c800" stroke-width="10"/>
+  <circle cx="772" cy="610" r="38" fill="none" stroke="#f5c800" stroke-width="10"/>
+  <path d="M586 197c69 6 124 29 164 69" fill="none" stroke="#f5c800" stroke-width="9" stroke-linecap="round" opacity="0.9"/>
+</svg>
