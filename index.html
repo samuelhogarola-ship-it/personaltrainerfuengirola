@@ -4,10 +4,28 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Personal Trainer Fuengirola – Sorvali</title>
+  <meta name="description" content="Entrenamiento personal en Fuengirola con Sofia Sorvali. Programas 1 a 1 de fuerza, acondicionamiento fisico y transformacion corporal.">
+  <meta name="robots" content="index,follow">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Personal Trainer Fuengirola – Sorvali">
+  <meta property="og:description" content="Entrenamiento personal en Fuengirola con programas 1 a 1 y seguimiento real.">
+  <meta property="og:url" content="./">
+  <meta property="og:image" content="./favicon.png">
+  <meta property="og:locale" content="es_ES">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Personal Trainer Fuengirola – Sorvali">
+  <meta name="twitter:description" content="Entrenamiento personal en Fuengirola con programas 1 a 1 y seguimiento real.">
+  <meta name="twitter:image" content="./favicon.png">
+  <link rel="canonical" href="./">
+  <link rel="alternate" hreflang="es" href="./?lang=es">
+  <link rel="alternate" hreflang="en" href="./?lang=en">
+  <link rel="alternate" hreflang="fi" href="./?lang=fi">
+  <link rel="alternate" hreflang="x-default" href="./">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="stylesheet" href="styles.css">
+  <script type="application/ld+json" id="structured-data"></script>
 </head>
 <body>
 
@@ -108,11 +126,11 @@
     <h3 data-key="info-title1">Ubicación</h3>
     <div class="info-item">
       <span class="ico">📍</span>
-      <p><strong data-key="info-address-label">Dirección</strong>Fuengirola, Málaga</p>
+      <p><strong data-key="info-address-label">Dirección</strong> Fuengirola, Málaga</p>
     </div>
     <div class="info-item">
       <span class="ico">💬</span>
-      <p><strong>WhatsApp</strong><a href="https://api.whatsapp.com/send/?phone=34624043365&text&type=phone_number&app_absent=0">+34 624 04 33 65</a></p>
+      <p><strong>WhatsApp</strong> <a href="https://api.whatsapp.com/send/?phone=34624043365&text&type=phone_number&app_absent=0">+34 624 04 33 65</a></p>
     </div>
   </div>
   <div class="info-block reveal">
@@ -207,6 +225,8 @@ const services = {
 /* ── TRANSLATIONS ── */
 const translations = {
   es: {
+    'page-title': 'Personal Trainer Fuengirola – Sorvali',
+    'meta-description': 'Entrenamiento personal en Fuengirola con Sofia Sorvali. Programas 1 a 1 de fuerza, acondicionamiento fisico y transformacion corporal.',
     'logo-main': 'Personal Trainer',
     'nav-services': 'Servicios',
     'nav-about': 'Sobre mí',
@@ -242,6 +262,8 @@ const translations = {
     'info-btn': 'Reservar sesión',
   },
   en: {
+    'page-title': 'Personal Trainer Fuengirola – Sorvali',
+    'meta-description': 'Personal training in Fuengirola with Sofia Sorvali. One-to-one strength, conditioning and body transformation programmes.',
     'logo-main': 'Personal Trainer',
     'nav-services': 'Services',
     'nav-about': 'About',
@@ -277,6 +299,8 @@ const translations = {
     'info-btn': 'Book a session',
   },
   fi: {
+    'page-title': 'Personal Trainer Fuengirola – Sorvali',
+    'meta-description': 'Personal training -valmennusta Fuengirolassa Sofia Sorvalin kanssa. Yksilolliset ohjelmat voimaan, kuntoon ja kehonmuokkaukseen.',
     'logo-main': 'Personal Trainer',
     'nav-services': 'Palvelut',
     'nav-about': 'Tietoa minusta',
@@ -384,6 +408,55 @@ const cookieBanner = window.initCookieBanner({
   legalHrefBuilder: (lang) => `/legal?lang=${lang}#cookies`,
 });
 
+function getAbsoluteUrl(pathname = '/', search = '') {
+  const base = window.location.origin === 'null' ? 'https://example.com' : window.location.origin;
+  return new URL(`${pathname}${search}`, `${base}/`).toString();
+}
+
+function updateSeo(lang) {
+  const copy = translations[lang];
+  const pathname = window.location.pathname.endsWith('/index.html')
+    ? window.location.pathname.replace(/index\.html$/, '')
+    : window.location.pathname;
+  const canonicalUrl = getAbsoluteUrl(pathname || '/', '');
+  const querySuffix = (code) => `?lang=${code}`;
+
+  document.title = copy['page-title'];
+  document.querySelector('meta[name="description"]').setAttribute('content', copy['meta-description']);
+  document.querySelector('meta[property="og:title"]').setAttribute('content', copy['page-title']);
+  document.querySelector('meta[property="og:description"]').setAttribute('content', copy['meta-description']);
+  document.querySelector('meta[property="og:url"]').setAttribute('content', canonicalUrl);
+  document.querySelector('meta[property="og:locale"]').setAttribute('content', lang === 'es' ? 'es_ES' : lang === 'en' ? 'en_GB' : 'fi_FI');
+  document.querySelector('meta[name="twitter:title"]').setAttribute('content', copy['page-title']);
+  document.querySelector('meta[name="twitter:description"]').setAttribute('content', copy['meta-description']);
+  document.querySelector('link[rel="canonical"]').setAttribute('href', canonicalUrl);
+  document.querySelector('link[hreflang="es"]').setAttribute('href', getAbsoluteUrl(pathname || '/', querySuffix('es')));
+  document.querySelector('link[hreflang="en"]').setAttribute('href', getAbsoluteUrl(pathname || '/', querySuffix('en')));
+  document.querySelector('link[hreflang="fi"]').setAttribute('href', getAbsoluteUrl(pathname || '/', querySuffix('fi')));
+  document.querySelector('link[hreflang="x-default"]').setAttribute('href', canonicalUrl);
+
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: 'Sofia Sorvali',
+    jobTitle: 'Personal Trainer',
+    description: copy['meta-description'],
+    url: canonicalUrl,
+    image: getAbsoluteUrl('/favicon.png'),
+    telephone: '+34 624 04 33 65',
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Fuengirola',
+      addressRegion: 'Malaga',
+      addressCountry: 'ES',
+    },
+    sameAs: ['https://www.sportmassagefuengirola.com'],
+    knowsAbout: ['Personal training', 'Strength training', 'Body transformation'],
+  };
+
+  document.getElementById('structured-data').textContent = JSON.stringify(structuredData);
+}
+
 /* ── RENDER SERVICES ── */
 function renderServices(lang) {
   const grid = document.getElementById('services-grid');
@@ -414,10 +487,12 @@ function setLang(lang) {
   document.querySelectorAll('.lang button').forEach(b => b.classList.remove('active'));
   document.getElementById('btn-' + lang).classList.add('active');
   document.documentElement.lang = lang;
+  document.documentElement.setAttribute('dir', 'ltr');
   window.localStorage.setItem('ptfuengirola-lang', lang);
   document.querySelectorAll('[data-legal-link]').forEach(link => {
     link.setAttribute('href', `/legal?lang=${lang}`);
   });
+  updateSeo(lang);
   renderServices(lang);
   cookieBanner.setLang(lang);
 }

@@ -73,13 +73,55 @@ const cookieBanner = window.initCookieBanner({
 });
 
 function getMainSiteUrl() {
-  const mainUrl = new URL('../index.html', window.location.href);
-  return `${mainUrl.origin}/`;
+  const baseOrigin = window.location.origin === 'null' ? 'https://example.com' : window.location.origin;
+  return new URL('/', `${baseOrigin}/`).toString();
+}
+
+function getLegalUrl(lang) {
+  const baseOrigin = window.location.origin === 'null' ? 'https://example.com' : window.location.origin;
+  return new URL(`/legal/?lang=${lang}`, `${baseOrigin}/`).toString();
+}
+
+function updateSeo(lang) {
+  const copy = contentByLang[lang];
+  const legalUrl = getLegalUrl(lang);
+
+  document.title = copy.pageTitle;
+  document.documentElement.lang = lang;
+  document.querySelector('meta[name="description"]').setAttribute('content', copy.metaDescription);
+  document.querySelector('meta[property="og:title"]').setAttribute('content', copy.pageTitle);
+  document.querySelector('meta[property="og:description"]').setAttribute('content', copy.metaDescription);
+  document.querySelector('meta[property="og:url"]').setAttribute('content', legalUrl);
+  document.querySelector('meta[property="og:locale"]').setAttribute('content', lang === 'es' ? 'es_ES' : lang === 'en' ? 'en_GB' : 'fi_FI');
+  document.querySelector('meta[name="twitter:title"]').setAttribute('content', copy.pageTitle);
+  document.querySelector('meta[name="twitter:description"]').setAttribute('content', copy.metaDescription);
+  document.querySelector('link[rel="canonical"]').setAttribute('href', legalUrl);
+  document.querySelector('link[hreflang="es"]').setAttribute('href', getLegalUrl('es'));
+  document.querySelector('link[hreflang="en"]').setAttribute('href', getLegalUrl('en'));
+  document.querySelector('link[hreflang="fi"]').setAttribute('href', getLegalUrl('fi'));
+  document.querySelector('link[hreflang="x-default"]').setAttribute('href', getLegalUrl('es'));
+
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: copy.pageTitle,
+    description: copy.metaDescription,
+    url: legalUrl,
+    inLanguage: lang,
+    isPartOf: {
+      '@type': 'WebSite',
+      name: 'Personal Trainer Fuengirola – Sorvali',
+      url: getMainSiteUrl(),
+    },
+  };
+
+  document.getElementById('legal-structured-data').textContent = JSON.stringify(structuredData);
 }
 
 const contentByLang = {
   es: {
     pageTitle: 'Información Legal · Personal Trainer Fuengirola – Sorvali',
+    metaDescription: 'Informacion legal, privacidad y cookies de Personal Trainer Fuengirola - Sorvali.',
     nav: {
       home: 'Inicio',
       services: 'Servicios',
@@ -105,7 +147,7 @@ const contentByLang = {
       },
       ownerAddress: 'Calle Narciso 5',
       contactEmail: 'sport.massage.fuengirola@gmail.com',
-      siteUrl: '[RELLENAR]',
+      siteUrl: '',
       lastUpdated: 'mayo de 2026',
       labels: {
         updated: 'Última actualización',
@@ -137,6 +179,7 @@ const contentByLang = {
   },
   en: {
     pageTitle: 'Legal Information · Personal Trainer Fuengirola – Sorvali',
+    metaDescription: 'Legal information, privacy and cookies for Personal Trainer Fuengirola - Sorvali.',
     nav: {
       home: 'Home',
       services: 'Services',
@@ -162,7 +205,7 @@ const contentByLang = {
       },
       ownerAddress: 'Calle Narciso 5',
       contactEmail: 'sport.massage.fuengirola@gmail.com',
-      siteUrl: '[RELLENAR]',
+      siteUrl: '',
       lastUpdated: 'May 2026',
       labels: {
         updated: 'Last updated',
@@ -194,6 +237,7 @@ const contentByLang = {
   },
   fi: {
     pageTitle: 'Lakisääteiset tiedot · Personal Trainer Fuengirola – Sorvali',
+    metaDescription: 'Personal Trainer Fuengirola - Sorvalin lakisateiset tiedot, tietosuoja ja evasteet.',
     nav: {
       home: 'Etusivu',
       services: 'Palvelut',
@@ -219,7 +263,7 @@ const contentByLang = {
       },
       ownerAddress: 'Calle Narciso 5',
       contactEmail: 'sport.massage.fuengirola@gmail.com',
-      siteUrl: '[RELLENAR]',
+      siteUrl: '',
       lastUpdated: 'toukokuu 2026',
       labels: {
         updated: 'Päivitetty viimeksi',
@@ -284,8 +328,6 @@ function updateHomeLinks(lang) {
 
 function updateStaticCopy(lang) {
   const copy = contentByLang[lang];
-  document.title = copy.pageTitle;
-  document.documentElement.lang = lang;
   document.querySelector('[data-key="logo-main"]').textContent = 'Personal Trainer';
   document.querySelector('[data-key="nav-home"]').textContent = copy.nav.home;
   document.querySelector('[data-key="nav-services"]').textContent = copy.nav.services;
@@ -318,6 +360,7 @@ function setActiveLang(lang) {
 function setLang(lang) {
   const safeLang = contentByLang[lang] ? lang : 'es';
   window.localStorage.setItem(LEGAL_STORAGE_KEY, safeLang);
+  updateSeo(safeLang);
   updateStaticCopy(safeLang);
   updateHomeLinks(safeLang);
   setActiveLang(safeLang);

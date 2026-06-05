@@ -9,24 +9,32 @@ Pure HTML + CSS. No build step, no dependencies.
 ## Structure
 
 ```
-index.html   – markup and JS (services data, i18n, scroll reveal)
-styles.css   – all styles
-legal/       – /legal route rendered as HTML
+index.html        – landing page, multilingual copy and SEO metadata
+cookie-banner.js  – cookie banner and preference panel
+styles.css        – all shared styles
+legal/            – legal page shell + legal content adapter
+assets/           – local assets for the public site
 ```
 
 ## Legal page
 
-`/legal` now renders a normal HTML page and keeps the app's own header/footer.
+`/legal/` renders as a normal HTML page and keeps the app's own header/footer.
 
 Current status:
 
-- It uses a temporary local adapter in `legal/legal-core.js` with the same API as `createLegalPageMarkup(appConfig)`.
-- It loads `legal/legal-core.css` as a temporary copy point for the core legal styles.
-- When the shared core package is available to this static app, replace those two files with the published assets and keep `legal/legal-page.js` as the thin app-specific config layer.
+- `legal/legal-page.js` owns the multilingual copy and dynamic SEO metadata for the legal route.
+- `legal/legal-core.js` provides the shared legal markup renderer used by this static site.
+- `legal/legal-core.css` contains the route-specific legal styles layered on top of `styles.css`.
+
+## SEO
+
+- Home and legal routes expose dynamic canonical, Open Graph, Twitter and JSON-LD metadata.
+- Language switching is handled with `?lang=es|en|fi`, and alternate language links are updated in the document head.
+- Absolute URLs are derived from the current deployment origin, so the site can move between staging and production without hardcoded domain edits.
 
 ## Languages
 
-ES 🇪🇸 · EN 🇬🇧 · FI 🇫🇮 — switched client-side via a translations object in `index.html`.
+ES 🇪🇸 · EN 🇬🇧 · FI 🇫🇮 — switched client-side via the translation maps in `index.html` and `legal/legal-page.js`.
 
 ## Deploy
 
