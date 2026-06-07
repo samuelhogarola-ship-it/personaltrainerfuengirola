@@ -46,6 +46,12 @@ Validate the editorial manifest and image coverage:
 npm run validate:content
 ```
 
+Run the full local gate used by hooks and CI:
+
+```bash
+npm run check
+```
+
 The build script:
 
 - keeps Spanish in `/`, English in `/en/` and Finnish in `/fi/`
@@ -65,6 +71,21 @@ The build script:
 ## Scheduling
 
 `.github/workflows/publish-scheduled-content.yml` runs daily and commits newly published content back to the repository so the static host can redeploy automatically.
+
+## Quality gates
+
+Local pre-commit and GitHub PR validation both run the same shared check:
+
+- `npm run check`
+- `npm run build`
+- `npm run validate:content`
+- fail if the build regenerates files that were not committed
+
+Enable the local hook once per clone:
+
+```bash
+npm run setup:hooks
+```
 
 ## Deploy
 

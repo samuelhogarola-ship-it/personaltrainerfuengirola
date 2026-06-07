@@ -1,0 +1,11 @@
+#!/bin/sh
+set -eu
+
+echo "Running pre-commit checks..."
+npm run check
+
+if ! git diff --quiet; then
+  echo "Build output changed during pre-commit. Review and stage the regenerated files before committing."
+  git status --short
+  exit 1
+fi
