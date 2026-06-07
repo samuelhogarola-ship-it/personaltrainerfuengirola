@@ -1,43 +1,155 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://personaltrainerfuengirola.com/</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-06-07</lastmod>
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://personaltrainerfuengirola.com/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://personaltrainerfuengirola.com/en/" />
+    <xhtml:link rel="alternate" hreflang="fi-FI" href="https://personaltrainerfuengirola.com/fi/" />
+  </url>
+  <url>
+    <loc>https://personaltrainerfuengirola.com/en/</loc>
+    <lastmod>2026-06-07</lastmod>
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://personaltrainerfuengirola.com/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://personaltrainerfuengirola.com/en/" />
+    <xhtml:link rel="alternate" hreflang="fi-FI" href="https://personaltrainerfuengirola.com/fi/" />
+  </url>
+  <url>
+    <loc>https://personaltrainerfuengirola.com/fi/</loc>
+    <lastmod>2026-06-07</lastmod>
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://personaltrainerfuengirola.com/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://personaltrainerfuengirola.com/en/" />
+    <xhtml:link rel="alternate" hreflang="fi-FI" href="https://personaltrainerfuengirola.com/fi/" />
   </url>
   <url>
     <loc>https://personaltrainerfuengirola.com/sobre-sorvali/</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-06-07</lastmod>
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://personaltrainerfuengirola.com/sobre-sorvali/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://personaltrainerfuengirola.com/en/about-sorvali/" />
+    <xhtml:link rel="alternate" hreflang="fi-FI" href="https://personaltrainerfuengirola.com/fi/sorvalista/" />
+  </url>
+  <url>
+    <loc>https://personaltrainerfuengirola.com/en/about-sorvali/</loc>
+    <lastmod>2026-06-07</lastmod>
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://personaltrainerfuengirola.com/sobre-sorvali/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://personaltrainerfuengirola.com/en/about-sorvali/" />
+    <xhtml:link rel="alternate" hreflang="fi-FI" href="https://personaltrainerfuengirola.com/fi/sorvalista/" />
+  </url>
+  <url>
+    <loc>https://personaltrainerfuengirola.com/fi/sorvalista/</loc>
+    <lastmod>2026-06-07</lastmod>
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://personaltrainerfuengirola.com/sobre-sorvali/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://personaltrainerfuengirola.com/en/about-sorvali/" />
+    <xhtml:link rel="alternate" hreflang="fi-FI" href="https://personaltrainerfuengirola.com/fi/sorvalista/" />
   </url>
   <url>
     <loc>https://personaltrainerfuengirola.com/servicios/entrenamiento-personal-fuengirola/</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-06-07</lastmod>
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://personaltrainerfuengirola.com/servicios/entrenamiento-personal-fuengirola/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://personaltrainerfuengirola.com/en/services/personal-training-fuengirola/" />
+    <xhtml:link rel="alternate" hreflang="fi-FI" href="https://personaltrainerfuengirola.com/fi/palvelut/personal-training-fuengirola/" />
+  </url>
+  <url>
+    <loc>https://personaltrainerfuengirola.com/en/services/personal-training-fuengirola/</loc>
+    <lastmod>2026-06-07</lastmod>
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://personaltrainerfuengirola.com/servicios/entrenamiento-personal-fuengirola/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://personaltrainerfuengirola.com/en/services/personal-training-fuengirola/" />
+    <xhtml:link rel="alternate" hreflang="fi-FI" href="https://personaltrainerfuengirola.com/fi/palvelut/personal-training-fuengirola/" />
+  </url>
+  <url>
+    <loc>https://personaltrainerfuengirola.com/fi/palvelut/personal-training-fuengirola/</loc>
+    <lastmod>2026-06-07</lastmod>
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://personaltrainerfuengirola.com/servicios/entrenamiento-personal-fuengirola/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://personaltrainerfuengirola.com/en/services/personal-training-fuengirola/" />
+    <xhtml:link rel="alternate" hreflang="fi-FI" href="https://personaltrainerfuengirola.com/fi/palvelut/personal-training-fuengirola/" />
   </url>
   <url>
     <loc>https://personaltrainerfuengirola.com/precios/</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-06-07</lastmod>
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://personaltrainerfuengirola.com/precios/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://personaltrainerfuengirola.com/en/pricing/" />
+    <xhtml:link rel="alternate" hreflang="fi-FI" href="https://personaltrainerfuengirola.com/fi/hinnat/" />
+  </url>
+  <url>
+    <loc>https://personaltrainerfuengirola.com/en/pricing/</loc>
+    <lastmod>2026-06-07</lastmod>
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://personaltrainerfuengirola.com/precios/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://personaltrainerfuengirola.com/en/pricing/" />
+    <xhtml:link rel="alternate" hreflang="fi-FI" href="https://personaltrainerfuengirola.com/fi/hinnat/" />
+  </url>
+  <url>
+    <loc>https://personaltrainerfuengirola.com/fi/hinnat/</loc>
+    <lastmod>2026-06-07</lastmod>
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://personaltrainerfuengirola.com/precios/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://personaltrainerfuengirola.com/en/pricing/" />
+    <xhtml:link rel="alternate" hreflang="fi-FI" href="https://personaltrainerfuengirola.com/fi/hinnat/" />
   </url>
   <url>
     <loc>https://personaltrainerfuengirola.com/preguntas-frecuentes/</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-06-07</lastmod>
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://personaltrainerfuengirola.com/preguntas-frecuentes/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://personaltrainerfuengirola.com/en/faq/" />
+    <xhtml:link rel="alternate" hreflang="fi-FI" href="https://personaltrainerfuengirola.com/fi/ukk/" />
+  </url>
+  <url>
+    <loc>https://personaltrainerfuengirola.com/en/faq/</loc>
+    <lastmod>2026-06-07</lastmod>
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://personaltrainerfuengirola.com/preguntas-frecuentes/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://personaltrainerfuengirola.com/en/faq/" />
+    <xhtml:link rel="alternate" hreflang="fi-FI" href="https://personaltrainerfuengirola.com/fi/ukk/" />
+  </url>
+  <url>
+    <loc>https://personaltrainerfuengirola.com/fi/ukk/</loc>
+    <lastmod>2026-06-07</lastmod>
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://personaltrainerfuengirola.com/preguntas-frecuentes/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://personaltrainerfuengirola.com/en/faq/" />
+    <xhtml:link rel="alternate" hreflang="fi-FI" href="https://personaltrainerfuengirola.com/fi/ukk/" />
   </url>
   <url>
     <loc>https://personaltrainerfuengirola.com/blog/</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-06-07</lastmod>
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://personaltrainerfuengirola.com/blog/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://personaltrainerfuengirola.com/en/blog/" />
+    <xhtml:link rel="alternate" hreflang="fi-FI" href="https://personaltrainerfuengirola.com/fi/blog/" />
   </url>
   <url>
-    <loc>https://personaltrainerfuengirola.com/blog/beneficios-entrenador-personal-fuengirola/</loc>
-    <lastmod>2026-06-04</lastmod>
+    <loc>https://personaltrainerfuengirola.com/en/blog/</loc>
+    <lastmod>2026-06-07</lastmod>
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://personaltrainerfuengirola.com/blog/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://personaltrainerfuengirola.com/en/blog/" />
+    <xhtml:link rel="alternate" hreflang="fi-FI" href="https://personaltrainerfuengirola.com/fi/blog/" />
   </url>
   <url>
-    <loc>https://personaltrainerfuengirola.com/blog/entrenamiento-fuerza-principiantes/</loc>
-    <lastmod>2026-06-04</lastmod>
-  </url>
-  <url>
-    <loc>https://personaltrainerfuengirola.com/blog/perder-grasa-habitos-sostenibles/</loc>
-    <lastmod>2026-06-04</lastmod>
+    <loc>https://personaltrainerfuengirola.com/fi/blog/</loc>
+    <lastmod>2026-06-07</lastmod>
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://personaltrainerfuengirola.com/blog/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://personaltrainerfuengirola.com/en/blog/" />
+    <xhtml:link rel="alternate" hreflang="fi-FI" href="https://personaltrainerfuengirola.com/fi/blog/" />
   </url>
   <url>
     <loc>https://personaltrainerfuengirola.com/legal/</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-06-07</lastmod>
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://personaltrainerfuengirola.com/legal/" />
+  </url>
+  <url>
+    <loc>https://personaltrainerfuengirola.com/blog/entrenador-personal-o-ir-por-libre-fuengirola/</loc>
+    <lastmod>2026-06-07</lastmod>
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://personaltrainerfuengirola.com/blog/entrenador-personal-o-ir-por-libre-fuengirola/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://personaltrainerfuengirola.com/en/blog/personal-trainer-or-training-alone-in-fuengirola/" />
+    <xhtml:link rel="alternate" hreflang="fi-FI" href="https://personaltrainerfuengirola.com/fi/blog/personal-trainer-vai-yksin-treenaaminen-fuengirolassa/" />
+  </url>
+  <url>
+    <loc>https://personaltrainerfuengirola.com/en/blog/personal-trainer-or-training-alone-in-fuengirola/</loc>
+    <lastmod>2026-06-07</lastmod>
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://personaltrainerfuengirola.com/blog/entrenador-personal-o-ir-por-libre-fuengirola/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://personaltrainerfuengirola.com/en/blog/personal-trainer-or-training-alone-in-fuengirola/" />
+    <xhtml:link rel="alternate" hreflang="fi-FI" href="https://personaltrainerfuengirola.com/fi/blog/personal-trainer-vai-yksin-treenaaminen-fuengirolassa/" />
+  </url>
+  <url>
+    <loc>https://personaltrainerfuengirola.com/fi/blog/personal-trainer-vai-yksin-treenaaminen-fuengirolassa/</loc>
+    <lastmod>2026-06-07</lastmod>
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://personaltrainerfuengirola.com/blog/entrenador-personal-o-ir-por-libre-fuengirola/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://personaltrainerfuengirola.com/en/blog/personal-trainer-or-training-alone-in-fuengirola/" />
+    <xhtml:link rel="alternate" hreflang="fi-FI" href="https://personaltrainerfuengirola.com/fi/blog/personal-trainer-vai-yksin-treenaaminen-fuengirolassa/" />
   </url>
 </urlset>

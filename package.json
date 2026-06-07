@@ -1,0 +1,13 @@
+{
+  "name": "pt-fuengirola",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "node scripts/build.mjs && node scripts/validate-content.mjs",
+    "build": "node scripts/build.mjs",
+    "build:today": "node scripts/build.mjs",
+    "build:date": "node scripts/build.mjs --date",
+    "setup:hooks": "node scripts/setup-hooks.mjs",
+    "validate:content": "node scripts/validate-content.mjs"
+  }
+}
