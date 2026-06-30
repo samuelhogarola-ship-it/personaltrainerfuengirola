@@ -1400,6 +1400,15 @@ body.home-page .section a:hover {
     grid-column: 2;
     grid-row: 1;
     justify-self: start;
+    gap: 2px;
+    padding: 3px;
+  }
+
+  .language-switch button {
+    min-width: 30px;
+    min-height: 32px;
+    font-size: 0.66rem;
+    letter-spacing: 0.08em;
   }
 
   .logo-wrap {
