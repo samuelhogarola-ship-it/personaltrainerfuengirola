@@ -163,7 +163,11 @@ main {
   background: rgba(255, 255, 255, 0.04);
 }
 
+.language-switch a,
 .language-switch button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   min-width: 38px;
   min-height: 34px;
   border: 0;
@@ -175,13 +179,17 @@ main {
   font-weight: 800;
   letter-spacing: 0.12em;
   cursor: pointer;
+  text-decoration: none;
 }
 
+.language-switch a.is-active,
 .language-switch button.is-active {
   background: var(--accent);
   color: #090909;
 }
 
+.language-switch a:not(.is-active):hover,
+.language-switch a:not(.is-active):focus-visible,
 .language-switch button:not(.is-active):hover,
 .language-switch button:not(.is-active):focus-visible {
   color: #ffffff;
@@ -1404,6 +1412,7 @@ body.home-page .section a:hover {
     padding: 3px;
   }
 
+  .language-switch a,
   .language-switch button {
     min-width: 30px;
     min-height: 32px;
