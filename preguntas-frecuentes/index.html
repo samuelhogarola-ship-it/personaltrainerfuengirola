@@ -12,16 +12,14 @@
   <meta property="og:title" content="Preguntas Frecuentes | Personal Trainer Fuengirola">
   <meta property="og:description" content="FAQ sobre entrenamiento personal en Fuengirola con respuestas claras y orientadas a la reserva.">
   <meta property="og:url" content="https://personaltrainerfuengirola.com/preguntas-frecuentes/">
-  <meta property="og:image" content="https://personaltrainerfuengirola.com/favicon.png">
+  <meta property="og:image" content="https://personaltrainerfuengirola.com/assets/images/social-share.jpg">
+  <meta property="og:image:alt" content="Vista previa de Personal Trainer Fuengirola - Sorvali">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Preguntas Frecuentes | Personal Trainer Fuengirola">
   <meta name="twitter:description" content="Precio, primera sesión, frecuencia, objetivos y reserva explicados sin rodeos.">
-  <meta name="twitter:image" content="https://personaltrainerfuengirola.com/favicon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="icon" type="image/png" href="/favicon.png">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta name="twitter:image" content="https://personaltrainerfuengirola.com/assets/images/social-share.jpg">
+  <meta name="twitter:image:alt" content="Vista previa de Personal Trainer Fuengirola - Sorvali">
+  <link rel="icon" type="image/png" href="/assets/images/favicon-96.png">
   <link rel="stylesheet" href="/styles.css">
   <script type="application/ld+json">
     {
@@ -41,7 +39,7 @@
           "name": "¿Cuánto cuesta una sesión de entrenamiento personal en Fuengirola?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "La sesión individual tiene un precio de 50 euros."
+            "text": "La sesión individual tiene un precio de 60 euros. El bono de 10 sesiones cuesta 550 euros e incluye rutina semanal básica."
           }
         },
         {
@@ -62,41 +60,62 @@
         },
         {
           "@type": "Question",
-          "name": "¿Este servicio ayuda a perder grasa o cambiar la composición corporal?",
+          "name": "¿El servicio sirve para perder grasa o mejorar composición corporal?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Sí. Muchas personas buscan precisamente recomposición corporal, mejora física y recuperación de hábitos con una estructura clara."
+            "text": "Sí. Una parte importante del trabajo se orienta a recomposición corporal, mejora física general y recuperación de hábitos de entrenamiento."
           }
         },
         {
           "@type": "Question",
-          "name": "¿Puedo reservar escribiendo por WhatsApp?",
+          "name": "¿Se trabaja solo fuerza?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Sí. WhatsApp es el canal principal para consultar disponibilidad, explicar tu caso y reservar."
+            "text": "La fuerza es una base muy útil, pero el servicio se adapta al objetivo. También se trabaja acondicionamiento físico, técnica, control y consistencia."
           }
         },
         {
           "@type": "Question",
-          "name": "¿Qué debo llevar a la sesión?",
+          "name": "¿Cómo se reserva una sesión?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Ropa cómoda para entrenar, agua y la disposición a comentar con claridad tu objetivo y tu experiencia previa."
+            "text": "La reserva y la consulta de disponibilidad se hacen por WhatsApp. Es el canal más rápido para resolver dudas y cerrar una primera sesión."
           }
         },
         {
           "@type": "Question",
-          "name": "¿Hay testimonios publicados en la web?",
+          "name": "¿Por qué no hay testimonios publicados en esta web?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "La web prioriza información verificable y claridad de servicio. Si en el futuro se publican testimonios, se mostrarán con contexto real y verificable."
+            "text": "La prioridad de esta versión es mantener solo información verificable. Si más adelante se publican testimonios, se incorporarán con contexto real y sin frases genéricas."
           }
+        }
+      ]
+    }
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Inicio",
+          "item": "https://personaltrainerfuengirola.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "FAQ",
+          "item": "https://personaltrainerfuengirola.com/preguntas-frecuentes/"
         }
       ]
     }
   </script>
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Saltar al contenido</a>
   <header class="site-header">
     <div class="header-inner">
       <a href="/" class="logo-wrap" aria-label="Ir a la página principal de Personal Trainer Fuengirola">
@@ -106,7 +125,12 @@
           <span class="logo-sub">Fuengirola · Sorvali</span>
         </span>
       </a>
-      <nav class="site-nav" aria-label="Navegación principal">
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Abrir navegación principal">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+      <nav class="site-nav" id="site-nav" aria-label="Navegación principal">
         <a href="/">Inicio</a>
         <a href="/sobre-sorvali/">Sobre Sorvali</a>
         <a href="/servicios/entrenamiento-personal-fuengirola/">Servicio</a>
@@ -118,10 +142,10 @@
     </div>
   </header>
 
-  <main class="page-shell">
+  <main class="page-shell" id="main-content">
     <section class="page-hero">
       <div class="page-hero-copy reveal">
-        <p class="breadcrumbs"><a href="/">Inicio</a> / FAQ</p>
+        <nav class="breadcrumbs" aria-label="Ruta de navegación"><a href="/">Inicio</a> / <span aria-current="page">FAQ</span></nav>
         <p class="eyebrow">Dudas frecuentes</p>
         <h1>Preguntas frecuentes sobre <span>entrenamiento personal en Fuengirola.</span></h1>
         <p class="lead">Esta página reúne respuestas claras a las dudas más habituales antes de reservar: nivel, precio, primera sesión, frecuencia y forma de contacto. Sirve tanto para quien está comparando opciones como para quien ya sabe que quiere empezar y solo necesita confirmar cómo funciona el servicio.</p>
@@ -144,7 +168,7 @@
           <details class="faq-item reveal">
             <summary>¿Cuánto cuesta una sesión de entrenamiento personal en Fuengirola?</summary>
             <div class="faq-answer">
-              <p>La sesión individual tiene un precio de 50 €. Ese importe está visible en la web para evitar dudas básicas antes de escribir.</p>
+              <p>La sesión individual tiene un precio de 60 €. El bono de 10 sesiones cuesta 550 € e incluye rutina semanal básica. Estos importes están visibles en la web para evitar dudas básicas antes de escribir.</p>
             </div>
           </details>
           <details class="faq-item reveal">
@@ -212,11 +236,12 @@
           <a href="/servicios/entrenamiento-personal-fuengirola/">Servicio</a>
           <a href="/precios/">Precios</a>
           <a href="/blog/">Blog</a>
-          <a href="/legal/">Información legal</a>
+          <a href="/legal/">Legal y privacidad</a>
         </div>
       </div>
       <div class="footer-bottom">
-        <span>WhatsApp: <a href="https://api.whatsapp.com/send/?phone=34624043365&text=Hola%20Sorvali,%20tengo%20una%20duda%20sobre%20el%20servicio." target="_blank" rel="noopener noreferrer">+34 624 04 33 65</a></span>
+        <span>Tel/WhatsApp: <a href="tel:+34624043365">+34 624 04 33 65</a> · <a href="https://api.whatsapp.com/send/?phone=34624043365&text=Hola%20Sorvali,%20tengo%20una%20duda%20sobre%20el%20servicio." target="_blank" rel="noopener noreferrer">Abrir WhatsApp</a></span>
+        <span>Email: <a href="mailto:sport.massage.fuengirola@gmail.com">sport.massage.fuengirola@gmail.com</a></span>
         <span>© <span data-year>2026</span> · Desarrollado y mantenido por <a href="https://webfuengirola.com" target="_blank" rel="noopener noreferrer">Web Fuengirola Studio</a></span>
       </div>
     </div>
