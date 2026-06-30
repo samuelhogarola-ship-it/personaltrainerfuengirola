@@ -29,6 +29,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
@@ -39,6 +40,7 @@ body {
     linear-gradient(180deg, #090909 0%, #0d0d0d 100%);
   color: var(--text-soft);
   line-height: 1.65;
+  overflow-x: hidden;
 }
 
 .skip-link {
@@ -149,6 +151,41 @@ main {
   flex-wrap: wrap;
   justify-content: flex-end;
   gap: 10px 12px;
+}
+
+.language-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid rgba(245, 200, 0, 0.26);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.language-switch button {
+  min-width: 38px;
+  min-height: 34px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.76);
+  font: inherit;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+}
+
+.language-switch button.is-active {
+  background: var(--accent);
+  color: #090909;
+}
+
+.language-switch button:not(.is-active):hover,
+.language-switch button:not(.is-active):focus-visible {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .nav-toggle {
@@ -752,16 +789,16 @@ body.home-page .site-header {
 
 body.home-page .header-inner {
   min-height: 88px;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: auto minmax(0, 1fr) auto auto;
   display: grid;
   align-items: center;
-  gap: 24px;
+  gap: 14px;
 }
 
 body.home-page .logo-mark {
   display: inline-flex;
-  width: 56px;
-  height: 56px;
+  width: 48px;
+  height: 48px;
   align-items: center;
   justify-content: center;
   background: transparent;
@@ -769,7 +806,7 @@ body.home-page .logo-mark {
   border: 2px solid #f5c800;
   border-radius: 50%;
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 1.6rem;
+  font-size: 1.3rem;
   font-weight: 700;
   letter-spacing: 0.03em;
 }
@@ -781,7 +818,8 @@ body.home-page .section-title {
 
 body.home-page .logo-main {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 2rem;
+  font-size: 1.55rem;
+  line-height: 1;
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -796,15 +834,19 @@ body.home-page .logo-sub {
 
 body.home-page .site-nav {
   justify-content: center;
-  gap: 14px;
+  flex-wrap: nowrap;
+  min-width: 0;
+  gap: 4px;
 }
 
 body.home-page .site-nav a {
   color: rgba(255, 255, 255, 0.78);
-  font-size: 0.82rem;
+  font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.11em;
+  white-space: nowrap;
   background: transparent;
+  padding: 10px 8px;
 }
 
 body.home-page .site-nav a:hover,
@@ -818,7 +860,7 @@ body.home-page .home-header-cta {
   align-items: center;
   justify-content: center;
   min-height: 58px;
-  padding: 0 24px;
+  padding: 0 18px;
   border-radius: 0;
   background: #f5c800;
   color: #090909;
@@ -834,10 +876,10 @@ body.home-page .home-hero-shell {
 }
 
 body.home-page .home-hero {
-  grid-template-columns: minmax(0, 1.12fr) minmax(340px, 0.88fr);
+  grid-template-columns: minmax(0, 1.08fr) minmax(300px, 0.92fr);
   gap: 0;
   align-items: stretch;
-  min-height: 720px;
+  min-height: 660px;
 }
 
 body.home-page .hero-copy {
@@ -849,10 +891,11 @@ body.home-page .home-display {
   margin: 0;
   color: #ffffff;
   font-family: 'Instrument Serif', serif;
-  font-size: clamp(4rem, 8vw, 7.5rem);
+  max-width: 9ch;
+  font-size: 6rem;
   font-weight: 400;
   letter-spacing: -0.04em;
-  line-height: 0.84;
+  line-height: 0.88;
 }
 
 body.home-page .home-display span,
@@ -1040,7 +1083,7 @@ body.home-page .home-band-inner span {
 
 body.home-page .home-mosaic {
   display: grid;
-  grid-template-columns: 1fr minmax(320px, 0.92fr) 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.86fr) minmax(0, 1fr);
   grid-template-areas:
     'service image prices'
     'blog image contact';
@@ -1049,8 +1092,9 @@ body.home-page .home-mosaic {
 
 body.home-page .home-panel {
   position: relative;
+  min-width: 0;
   min-height: 320px;
-  padding: 34px;
+  padding: 30px;
   overflow: hidden;
 }
 
@@ -1123,14 +1167,15 @@ body.home-page .home-panel-yellow .home-panel-index {
 }
 
 body.home-page .home-panel h2 {
-  max-width: 8ch;
+  max-width: 10ch;
   margin: 0 0 14px;
   font-family: 'Instrument Serif', serif;
-  font-size: clamp(3rem, 5vw, 4.5rem);
+  font-size: 3.45rem;
   font-weight: 400;
-  line-height: 0.9;
+  line-height: 0.94;
   letter-spacing: -0.05em;
   text-transform: uppercase;
+  overflow-wrap: anywhere;
 }
 
 body.home-page .home-panel-dark h2 {
@@ -1232,13 +1277,33 @@ body.home-page .section a:hover {
   }
 
   body.home-page .header-inner {
-    display: flex;
-    align-items: flex-start;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    align-items: center;
     min-height: 0;
+  }
+
+  body.home-page .site-nav {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    grid-column: 1 / -1;
   }
 
   body.home-page .home-header-cta {
     display: none;
+  }
+
+  body.home-page .home-hero {
+    min-height: 0;
+  }
+
+  body.home-page .hero-copy {
+    padding: 40px 24px 28px 0;
+  }
+
+  body.home-page .home-display {
+    max-width: 8ch;
+    font-size: 4.8rem;
   }
 
   body.home-page .home-mosaic {
@@ -1248,6 +1313,63 @@ body.home-page .section a:hover {
       'prices'
       'blog'
       'contact';
+  }
+}
+
+@media (min-width: 721px) and (max-width: 1120px) {
+  body.home-page .header-inner {
+    grid-template-columns: auto minmax(0, 1fr) auto auto;
+    gap: 14px;
+  }
+
+  body.home-page .logo-mark {
+    width: 48px;
+    height: 48px;
+    font-size: 1.3rem;
+  }
+
+  body.home-page .logo-main {
+    font-size: 1.55rem;
+    line-height: 1;
+  }
+
+  body.home-page .logo-sub {
+    font-size: 0.68rem;
+  }
+
+  body.home-page .home-header-cta {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+    min-height: 48px;
+    padding: 0 16px;
+    font-size: 0.72rem;
+  }
+
+  body.home-page .language-switch {
+    grid-column: 3;
+  }
+
+  body.home-page .nav-toggle {
+    display: inline-flex;
+    grid-column: 4;
+    grid-row: 1;
+  }
+
+  body.home-page.has-js-nav .site-nav {
+    display: none;
+    grid-column: 1 / -1;
+    width: 100%;
+    justify-content: flex-start;
+    padding: 8px 0 16px;
+  }
+
+  body.home-page.has-js-nav .site-nav.is-open {
+    display: flex;
+  }
+
+  body.home-page .site-nav a {
+    padding: 9px 10px;
   }
 }
 
@@ -1263,8 +1385,16 @@ body.home-page .section a:hover {
 
   .header-inner {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-columns: minmax(0, 1fr) auto auto;
     align-items: center;
+    gap: 10px;
+  }
+
+  .language-switch {
+    width: max-content;
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: start;
   }
 
   .logo-wrap {
@@ -1273,6 +1403,8 @@ body.home-page .section a:hover {
 
   .nav-toggle {
     display: inline-flex;
+    grid-column: 3;
+    grid-row: 1;
   }
 
   .has-js-nav .site-nav {
@@ -1316,24 +1448,73 @@ body.home-page .section a:hover {
   }
 
   body.home-page .home-hero-shell {
-    padding-top: 26px;
+    padding-top: 18px;
+  }
+
+  body.home-page .header-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 0;
+  }
+
+  body.home-page .logo-mark {
+    width: 42px;
+    height: 42px;
+    font-size: 1.15rem;
+  }
+
+  body.home-page .logo-main {
+    font-size: 1.35rem;
+    line-height: 1;
+  }
+
+  body.home-page .logo-sub {
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
   }
 
   body.home-page .home-display {
-    font-size: clamp(3rem, 15vw, 4.8rem);
+    max-width: 7.5ch;
+    font-size: 3.55rem;
+    line-height: 0.92;
+  }
+
+  body.home-page .lead {
+    font-size: 0.96rem;
+    line-height: 1.5;
+    letter-spacing: 0.04em;
+  }
+
+  body.home-page .hero-copy {
+    padding: 26px 0 22px;
   }
 
   body.home-page .home-hero-media {
-    min-height: 420px;
+    min-height: 320px;
+    border-left: 0;
+  }
+
+  body.home-page .home-hero-badge {
+    right: 18px;
+    top: 24px;
+    width: 108px;
+    height: 108px;
   }
 
   body.home-page .home-panel {
     min-height: 0;
-    padding: 24px;
+    padding: 24px 22px;
   }
 
   body.home-page .home-panel h2 {
-    font-size: 2.8rem;
+    font-size: 2.45rem;
+    line-height: 1;
+  }
+
+  body.home-page .home-panel p {
+    font-size: 0.98rem;
   }
 }
 

@@ -45,7 +45,7 @@ if (navToggle && siteNav) {
   });
 
   window.addEventListener('resize', () => {
-    if (window.innerWidth > 720) {
+    if (window.innerWidth > 1120) {
       setNavState(false);
     }
   });
