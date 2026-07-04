@@ -1,0 +1,25 @@
+name: Publish scheduled blog posts
+
+on:
+  schedule:
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Publish due posts
+        run: node scripts/publish-scheduled-posts.mjs
+
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Publish scheduled blog posts"
+          file_pattern: "blog/**/*.html en/blog/**/*.html fi/blog/**/*.html sitemap.xml"
