@@ -3,7 +3,9 @@ import path from 'node:path';
 
 const root = path.resolve(new URL('..', import.meta.url).pathname);
 const domain = 'https://personaltrainerfuengirola.com';
-const today = process.argv[2] || new Date().toISOString().slice(0, 10);
+const today = process.argv[2] || new Intl.DateTimeFormat('en-CA', {
+  timeZone: 'Europe/Madrid'
+}).format(new Date());
 const scheduled = JSON.parse(fs.readFileSync(path.join(root, 'scripts/scheduled-posts.json'), 'utf8'));
 const scheduledSlugs = new Set(scheduled.map((post) => post.slug));
 
