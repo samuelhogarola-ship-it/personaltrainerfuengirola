@@ -1,4 +1,4 @@
-# Personal Trainer Fuengirola – Sorvali
+# Personal Trainer Fuengirola – García
 
 Static SEO-focused website for a personal trainer based in Fuengirola, Málaga.
 
@@ -10,7 +10,7 @@ Pure HTML, CSS and a tiny JS helper for scroll reveal and footer year.
 
 ```text
 /index.html                                      Home
-/sobre-sorvali/index.html                        About page
+/sobre-garcia/index.html                        About page
 /servicios/entrenamiento-personal-fuengirola/   Main service page
 /precios/index.html                              Pricing page
 /preguntas-frecuentes/index.html                 FAQ page
@@ -36,4 +36,4 @@ Any static host works — Netlify, Cloudflare Pages, GitHub Pages or similar.
 
 ## Contact
 
-WhatsApp: +34 644 220 965
+WhatsApp: +34 634 00 26 61

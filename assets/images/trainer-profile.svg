@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="img" aria-labelledby="title desc">
-  <title id="title">Retrato ilustrado de entrenadora personal</title>
-  <desc id="desc">Ilustración abstracta de una entrenadora personal en tonos negro y dorado.</desc>
+  <title id="title">Retrato ilustrado de entrenador personal</title>
+  <desc id="desc">Ilustración abstracta de un entrenador personal en tonos negro y dorado.</desc>
   <rect width="1200" height="900" fill="#090909"/>
   <rect x="34" y="34" width="1132" height="832" rx="34" fill="none" stroke="#f5c800" stroke-width="8"/>
   <circle cx="770" cy="250" r="180" fill="none" stroke="#f5c800" stroke-width="10" opacity="0.95"/>
