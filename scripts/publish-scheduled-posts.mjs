@@ -1,7 +1,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const root = path.resolve(new URL('..', import.meta.url).pathname);
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const domain = 'https://personaltrainerfuengirola.com';
 const today = process.argv[2] || new Intl.DateTimeFormat('en-CA', {
   timeZone: 'Europe/Madrid'
@@ -96,7 +97,8 @@ function updatePostVisibility(post, lang, isDue) {
   const robots = isDue ? 'index,follow' : 'noindex,nofollow';
   html = html.replace(/<meta name="robots" content="[^"]*">/, `<meta name="robots" content="${robots}">`);
   html = html.replace(/"datePublished": "[^"]+"/, `"datePublished": "${post.date}"`);
-  html = html.replace(/"dateModified": "[^"]+"/, `"dateModified": "${isDue ? today : post.date}"`);
+  const currentModified = extract(/"dateModified": "([^"]+)"/, html, post.date);
+  html = html.replace(/"dateModified": "[^"]+"/, `"dateModified": "${isDue ? currentModified : post.date}"`);
   const prettyDate = formatDate(post.date, cfg.dateLocale);
   html = html.replace(new RegExp(`<span>${cfg.published}: [^<]+</span>`), `<span>${cfg.published}: ${prettyDate}</span>`);
   writePost(lang, post.slug, html);
@@ -117,13 +119,15 @@ function updateBlogIndex(lang, duePosts) {
 }
 
 function sitemapBlock(post, lang) {
+  const html = readPost(lang, post.slug);
+  const lastmod = extract(/"dateModified": "([^"]+)"/, html, post.date);
   return `  <url>
     <loc>${absUrl(lang, post.slug)}</loc>
     <xhtml:link rel="alternate" hreflang="es" href="${absUrl('es', post.slug)}"/>
     <xhtml:link rel="alternate" hreflang="en" href="${absUrl('en', post.slug)}"/>
     <xhtml:link rel="alternate" hreflang="fi" href="${absUrl('fi', post.slug)}"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="${absUrl('es', post.slug)}"/>
-    <lastmod>${today}</lastmod>
+    <lastmod>${lastmod}</lastmod>
   </url>`;
 }
 
