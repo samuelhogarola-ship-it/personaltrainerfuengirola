@@ -1,5 +1,10 @@
 RewriteEngine On
 
+# Preserve equity from the former trainer profile URLs.
+RewriteRule ^sobre-sorvali/?$ /sobre-garcia/ [R=301,L]
+RewriteRule ^en/sobre-sorvali/?$ /en/sobre-garcia/ [R=301,L]
+RewriteRule ^fi/sobre-sorvali/?$ /fi/sobre-garcia/ [R=301,L]
+
 # Keep directory-style URLs canonical.
 RewriteCond %{THE_REQUEST} \s/+(.*/)?index\.html[\s?] [NC]
 RewriteRule ^(.*/)?index\.html$ /$1 [R=301,L]
