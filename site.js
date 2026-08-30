@@ -1,3 +1,12 @@
+(() => {
+  if (document.querySelector('script[data-personal-trainer-umami-bootstrap]')) return;
+  const script = document.createElement('script');
+  script.defer = true;
+  script.dataset.personalTrainerUmamiBootstrap = 'true';
+  script.src = '/umami-analytics.js';
+  document.head.appendChild(script);
+})();
+
 document.documentElement.classList.add('js');
 
 const revealItems = document.querySelectorAll('.reveal');
