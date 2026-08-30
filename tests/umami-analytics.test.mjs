@@ -74,3 +74,20 @@ test("fails closed without a website id", async () => {
 
   assert.equal(tracker, null);
 });
+
+test("versioned production config loads the Personal Trainer website id", async () => {
+  const config = JSON.parse(readFileSync(path.join(projectRoot, "umami-config.json"), "utf8"));
+  const tracker = await runBootstrap(config);
+
+  assert.equal(tracker.dataset.websiteId, "f712523b-142d-4e87-a2d8-8d09876a04ec");
+  assert.equal(tracker.dataset.hostUrl, "https://analytics.187.124.55.36.sslip.io");
+});
+
+test("fails closed when config points to a different Umami host", async () => {
+  const tracker = await runBootstrap({
+    hostUrl: "https://analytics.2.24.10.239.sslip.io",
+    websiteId: "f712523b-142d-4e87-a2d8-8d09876a04ec",
+  });
+
+  assert.equal(tracker, null);
+});
