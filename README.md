@@ -37,3 +37,9 @@ Any static host works — Netlify, Cloudflare Pages, GitHub Pages or similar.
 ## Contact
 
 WhatsApp: +34 634 00 26 61
+
+## Content checks
+
+Run `npm run check` before publishing. No dependencies are needed. It checks analytics tests, ES/EN/FI scheduled translations, dates, unique slugs, page language, canonical URLs, titles, descriptions, headings and local image/alternate targets. The catalogue can grow beyond ten posts. Pull requests run the same checks; scheduled publishing validates before and after generation.
+
+The June trilingual PR #3 predates the current García identity, translated pages, scheduled HTML publisher, SEO additions and Umami integration. Its old whole-site generator is not used: it would overwrite those later changes. The current static pages and URLs remain the source of truth. Its useful validation gate is recovered here for the current format; its draft article collection and Sorvali layout remain preserved on the original branch, not silently republished.
