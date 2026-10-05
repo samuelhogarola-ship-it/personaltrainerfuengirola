@@ -15,8 +15,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Validate source content
+        run: node scripts/validate-content.mjs
+
       - name: Publish due posts
         run: node scripts/publish-scheduled-posts.mjs
+
+      - name: Validate generated content
+        run: node scripts/validate-content.mjs
 
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v5
