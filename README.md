@@ -34,6 +34,18 @@ Pure HTML, CSS and a tiny JS helper for scroll reveal and footer year.
 
 Any static host works — Netlify, Cloudflare Pages, GitHub Pages or similar.
 
+### Umami analytics
+
+The site loads `/umami-analytics-core.js` before `/site.js` on every page. The loader fetches `/umami-config.json` and remains inert when `websiteId` is missing, so no real Umami website ID is hardcoded in the repository.
+
+Render the production config from environment variables during deployment:
+
+```sh
+UMAMI_WEBSITE_ID=REPLACE_WITH_UMAMI_WEBSITE_ID ./scripts/render-umami-config.sh
+```
+
+Optional variables are `UMAMI_SCRIPT_URL` and `UMAMI_HOST_URL`; both default to the personal Umami instance used by Web Fuengirola.
+
 ## Contact
 
 WhatsApp: +34 634 00 26 61
