@@ -8,20 +8,23 @@ export function authorizeBuildRequest(authorization, secret) {
   return authorization === `Bearer ${secret}`;
 }
 
-export async function prepareContentRoot({ contentRoot, releaseBlogDir }) {
+export async function prepareContentRoot({ contentRoot, releaseBlogDir, releaseSitemapPath }) {
   const postsDir = path.join(contentRoot, 'blog-posts');
   const publicBlogDir = path.join(contentRoot, 'blog');
+  const sitemapPath = path.join(contentRoot, 'sitemap.xml');
   await mkdir(postsDir, { recursive: true });
-  if (!(await exists(publicBlogDir))) {
-    await cp(releaseBlogDir, publicBlogDir, { recursive: true });
+  await mergeMissingTree(releaseBlogDir, publicBlogDir);
+  if (releaseSitemapPath && !(await exists(sitemapPath))) {
+    await cp(releaseSitemapPath, sitemapPath);
   }
-  return { postsDir, publicBlogDir };
+  return { postsDir, publicBlogDir, sitemapPath };
 }
 
-export function resolveStaticFile(requestPath, { siteRoot, publicBlogDir }) {
+export function resolveStaticFile(requestPath, { siteRoot, publicBlogDir, sitemapPath }) {
   const decoded = decodeURIComponent(String(requestPath || '/'));
   if (decoded.includes('..')) return null;
   if (/^\/(?:blog-posts|site-data)(?:\/|$)/.test(decoded)) return null;
+  if (decoded === '/sitemap.xml' && sitemapPath) return path.resolve(sitemapPath);
 
   const base = decoded === '/blog' || decoded.startsWith('/blog/')
     ? publicBlogDir
@@ -189,5 +192,15 @@ async function exists(filePath) {
   } catch (error) {
     if (error.code === 'ENOENT') return false;
     throw error;
+  }
+}
+
+async function mergeMissingTree(sourceDir, targetDir) {
+  await mkdir(targetDir, { recursive: true });
+  for (const entry of await readdir(sourceDir, { withFileTypes: true })) {
+    const source = path.join(sourceDir, entry.name);
+    const target = path.join(targetDir, entry.name);
+    if (entry.isDirectory()) await mergeMissingTree(source, target);
+    else if (entry.isFile() && !(await exists(target))) await cp(source, target);
   }
 }

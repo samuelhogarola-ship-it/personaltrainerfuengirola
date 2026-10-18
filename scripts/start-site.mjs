@@ -17,9 +17,10 @@ const siteRoot = path.resolve(
 const contentRoot = path.resolve(
   process.env.PERSONAL_CONTENT_DIR || path.join(siteRoot, 'site-data'),
 );
-const { postsDir, publicBlogDir } = await prepareContentRoot({
+const { postsDir, publicBlogDir, sitemapPath } = await prepareContentRoot({
   contentRoot,
   releaseBlogDir: path.join(siteRoot, 'blog'),
+  releaseSitemapPath: path.join(siteRoot, 'sitemap.xml'),
 });
 
 const server = createServer(async (request, response) => {
@@ -38,7 +39,7 @@ const server = createServer(async (request, response) => {
         publicBlogDir,
         siteUrl: 'https://personaltrainerfuengirola.com',
         blogIndexPath: path.join(publicBlogDir, 'index.html'),
-        sitemapPath: path.join(siteRoot, 'sitemap.xml'),
+        sitemapPath,
       });
       return json(response, 200, { ok: true, ...result });
     }
@@ -47,7 +48,7 @@ const server = createServer(async (request, response) => {
       return json(response, 405, { error: 'Method not allowed' });
     }
 
-    const filePath = resolveStaticFile(url.pathname, { siteRoot, publicBlogDir });
+    const filePath = resolveStaticFile(url.pathname, { siteRoot, publicBlogDir, sitemapPath });
     if (!filePath) return json(response, 404, { error: 'Not found' });
     const fileStat = await stat(filePath);
     if (!fileStat.isFile()) return json(response, 404, { error: 'Not found' });

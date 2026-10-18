@@ -86,21 +86,30 @@ test('does not publish drafts', async () => {
 test('seeds the persistent blog once and preserves later edits', async () => {
   const root = await mkdtemp(path.join(os.tmpdir(), 'personal-blogger-'));
   const releaseBlogDir = path.join(root, 'release-blog');
+  const releaseSitemapPath = path.join(root, 'release-sitemap.xml');
   const contentRoot = path.join(root, 'site-data');
   await mkdir(path.join(releaseBlogDir, 'post'), { recursive: true });
   await writeFile(path.join(releaseBlogDir, 'post', 'index.html'), 'release');
+  await writeFile(releaseSitemapPath, '<urlset>release</urlset>');
 
-  const prepared = await prepareContentRoot({ contentRoot, releaseBlogDir });
+  const prepared = await prepareContentRoot({ contentRoot, releaseBlogDir, releaseSitemapPath });
   assert.equal(
     await readFile(path.join(prepared.publicBlogDir, 'post', 'index.html'), 'utf8'),
     'release',
   );
+  assert.equal(await readFile(prepared.sitemapPath, 'utf8'), '<urlset>release</urlset>');
 
   await writeFile(path.join(prepared.publicBlogDir, 'post', 'index.html'), 'edited');
-  await prepareContentRoot({ contentRoot, releaseBlogDir });
+  await mkdir(path.join(releaseBlogDir, 'new-post'), { recursive: true });
+  await writeFile(path.join(releaseBlogDir, 'new-post', 'index.html'), 'new release');
+  await prepareContentRoot({ contentRoot, releaseBlogDir, releaseSitemapPath });
   assert.equal(
     await readFile(path.join(prepared.publicBlogDir, 'post', 'index.html'), 'utf8'),
     'edited',
+  );
+  assert.equal(
+    await readFile(path.join(prepared.publicBlogDir, 'new-post', 'index.html'), 'utf8'),
+    'new release',
   );
 });
 
@@ -108,12 +117,14 @@ test('serves blog pages from the persistent root and keeps sources private', () 
   const options = {
     siteRoot: '/app/site',
     publicBlogDir: '/app/site-data/blog',
+    sitemapPath: '/app/site-data/sitemap.xml',
   };
   assert.equal(
     resolveStaticFile('/blog/example/', options),
     '/app/site-data/blog/example/index.html',
   );
   assert.equal(resolveStaticFile('/styles.css', options), '/app/site/styles.css');
+  assert.equal(resolveStaticFile('/sitemap.xml', options), '/app/site-data/sitemap.xml');
   assert.equal(resolveStaticFile('/blog-posts/example.md', options), null);
   assert.equal(resolveStaticFile('/site-data/blog/example/index.html', options), null);
   assert.equal(resolveStaticFile('/../secret', options), null);
