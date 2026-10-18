@@ -2,8 +2,10 @@
   "name": "personal-trainer-fuengirola",
   "private": true,
   "scripts": {
+    "start": "node scripts/start-site.mjs",
     "test": "node --test tests/*.test.mjs",
     "validate:content": "node scripts/validate-content.mjs",
-    "check": "npm test && npm run validate:content"
+    "check:umami": "node scripts/check-umami.mjs",
+    "check": "npm test && npm run validate:content && npm run check:umami"
   }
 }

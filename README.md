@@ -32,16 +32,29 @@ Pure HTML, CSS and a tiny JS helper for scroll reveal and footer year.
 
 ## Deploy
 
-Any static host works — Netlify, Cloudflare Pages, GitHub Pages or similar.
+Production runs as a Node container in Coolify. The container serves the static
+site, keeps Blogger content in the persistent volume mounted at
+`/app/site-data`, and exposes `/health` plus the protected
+`POST /api/blogger/build` hook.
+
+Required Coolify variables:
+
+- `BLOGGER_BUILD_SECRET`: shared only with WF Studio.
+- `UMAMI_WEBSITE_ID`: `f712523b-142d-4e87-a2d8-8d09876a04ec`.
+
+Mount the host directory `/data/personal-trainer/site-data` at
+`/app/site-data`. WF Studio must mount the same host directory and register it
+as the root for `personaltrainerfuengirola`.
 
 ### Umami analytics
 
 The site loads `/umami-analytics-core.js` before `/site.js` on every page. The loader fetches `/umami-config.json` and remains inert when `websiteId` is missing, so no real Umami website ID is hardcoded in the repository.
 
-Render the production config from environment variables during deployment:
+Set `UMAMI_WEBSITE_ID` to the website ID from the Umami Life instance before
+running the renderer. For this site the current public ID is:
 
 ```sh
-UMAMI_WEBSITE_ID=REPLACE_WITH_UMAMI_WEBSITE_ID ./scripts/render-umami-config.sh
+UMAMI_WEBSITE_ID=f712523b-142d-4e87-a2d8-8d09876a04ec ./scripts/render-umami-config.sh
 ```
 
 Optional variables are `UMAMI_SCRIPT_URL` and `UMAMI_HOST_URL`; both default to the personal Umami instance used by Web Fuengirola.
