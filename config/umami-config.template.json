@@ -1,0 +1,5 @@
+{
+  "scriptSrc": "__UMAMI_SCRIPT_URL__",
+  "hostUrl": "__UMAMI_HOST_URL__",
+  "websiteId": "__UMAMI_WEBSITE_ID__"
+}

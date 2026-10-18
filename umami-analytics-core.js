@@ -1,0 +1,161 @@
+/*
+   umami-analytics-core.js - anonymous, cookieless Umami loader
+   Exposes window.UmamiAnalyticsCore.init(config).
+*/
+(function () {
+  "use strict";
+
+  var DEFAULT_SCRIPT_SRC = "https://analytics.187.124.55.36.sslip.io/script.js";
+  var PERSONAL_HOST = "https://analytics.187.124.55.36.sslip.io";
+  var PRODUCTION_DOMAINS = "personaltrainerfuengirola.com,www.personaltrainerfuengirola.com";
+  var PLACEHOLDER_WEBSITE_IDS = {
+    "": true,
+    REPLACE_WITH_UMAMI_WEBSITE_ID: true,
+  };
+
+  var _config = null;
+  var _initialized = false;
+  var _queue = [];
+
+  function hasValidWebsiteId() {
+    return !!(
+      _config &&
+      _config.websiteId &&
+      /^[A-Za-z0-9_-]{8,128}$/.test(_config.websiteId) &&
+      !PLACEHOLDER_WEBSITE_IDS[_config.websiteId]
+    );
+  }
+
+  function canTrack() {
+    return hasValidWebsiteId() &&
+      PRODUCTION_DOMAINS.split(',').indexOf(window.location.hostname) !== -1 &&
+      (!_config.hostUrl || _config.hostUrl === PERSONAL_HOST) &&
+      (!_config.scriptSrc || _config.scriptSrc === DEFAULT_SCRIPT_SRC);
+  }
+
+  function logMissingConfig() {
+    if (_config && _config.debug) {
+      console.warn("[UmamiAnalyticsCore] websiteId is required");
+    }
+  }
+
+  function flushQueue() {
+    if (!canTrack()) return;
+    if (!window.umami || typeof window.umami.track !== "function") return;
+    while (_queue.length) {
+      var item = _queue.shift();
+      if (item.pageview) window.umami.track(item.pageview);
+      else window.umami.track(item.eventName, item.params || {});
+    }
+  }
+
+  function loadScript() {
+    if (!_initialized) return;
+    if (!canTrack()) {
+      logMissingConfig();
+      return;
+    }
+
+    if (document.querySelector("script[data-umami-analytics-core]")) {
+      flushQueue();
+      return;
+    }
+
+    var script = document.createElement("script");
+    script.defer = true;
+    script.async = true;
+    script.dataset.umamiAnalyticsCore = "true";
+    script.dataset.websiteId = _config.websiteId;
+    script.src = _config.scriptSrc || DEFAULT_SCRIPT_SRC;
+
+    if (_config.hostUrl) script.dataset.hostUrl = _config.hostUrl;
+    script.dataset.domains = PRODUCTION_DOMAINS;
+    if (_config.autoTrack === false) script.dataset.autoTrack = "false";
+
+    script.addEventListener("load", flushQueue);
+    script.addEventListener("error", function () {
+      script.remove();
+    });
+    document.head.appendChild(script);
+  }
+
+  function init(config) {
+    if (_initialized) return;
+    _config = config || {};
+    _initialized = true;
+    if (!canTrack()) {
+      _queue = [];
+      logMissingConfig();
+      return;
+    }
+    loadScript();
+  }
+
+  function grantConsent() {
+    loadScript();
+  }
+
+  function revokeConsent() {}
+
+  function trackEvent(eventName, params) {
+    if (!eventName) return;
+
+    if (!_initialized) {
+      _queue.push({ eventName: eventName, params: params || {} });
+      return;
+    }
+
+    if (!canTrack()) return;
+
+    if (window.umami && typeof window.umami.track === "function") {
+      window.umami.track(eventName, params || {});
+      return;
+    }
+
+    _queue.push({ eventName: eventName, params: params || {} });
+    loadScript();
+  }
+
+  function trackPageview(path, title) {
+    var pageview = {
+      url:
+        path ||
+        (typeof window !== "undefined" && window.location
+          ? window.location.pathname
+          : ""),
+      title: title || (typeof document !== "undefined" ? document.title : ""),
+    };
+    if (!_initialized) {
+      _queue.push({ pageview: pageview });
+      return;
+    }
+    if (!canTrack()) return;
+    if (window.umami && typeof window.umami.track === "function") {
+      window.umami.track(pageview);
+      return;
+    }
+    _queue.push({ pageview: pageview });
+    loadScript();
+  }
+
+  function _reset() {
+    _config = null;
+    _initialized = false;
+    _queue = [];
+  }
+
+  var api = {
+    init: init,
+    grantConsent: grantConsent,
+    revokeConsent: revokeConsent,
+    trackEvent: trackEvent,
+    trackPageview: trackPageview,
+    _reset: _reset,
+  };
+
+  window.UmamiAnalyticsCore = api;
+
+  if (typeof module !== "undefined" && module.exports) {
+    module.exports = api;
+  }
+})();
