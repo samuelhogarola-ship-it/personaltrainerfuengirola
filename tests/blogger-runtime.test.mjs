@@ -83,6 +83,28 @@ test('does not publish drafts', async () => {
   assert.deepEqual(result, { published: 0, skipped: 1 });
 });
 
+test('removes a previously published page when its post becomes a draft', async () => {
+  const root = await mkdtemp(path.join(os.tmpdir(), 'personal-blogger-'));
+  const sourcePath = path.join(root, 'post.md');
+  const publicBlogDir = path.join(root, 'public-blog');
+  await writeFile(sourcePath, `---\ntitle: Temporal\nslug: temporal\ndescription: Publicación temporal.\nstatus: published\n---\n\nContenido.\n`);
+  await renderPublishedPosts({ postsDir: root, publicBlogDir, siteUrl: 'https://personaltrainerfuengirola.com' });
+  await readFile(path.join(publicBlogDir, 'temporal', 'index.html'), 'utf8');
+
+  await writeFile(sourcePath, `---\ntitle: Temporal\nslug: temporal\ndescription: Publicación temporal.\nstatus: draft\n---\n\nContenido.\n`);
+  await renderPublishedPosts({ postsDir: root, publicBlogDir, siteUrl: 'https://personaltrainerfuengirola.com' });
+  await assert.rejects(readFile(path.join(publicBlogDir, 'temporal', 'index.html'), 'utf8'), { code: 'ENOENT' });
+});
+
+test('rejects an unsafe slug before writing outside the blog directory', async () => {
+  const root = await mkdtemp(path.join(os.tmpdir(), 'personal-blogger-'));
+  await writeFile(path.join(root, 'unsafe.md'), `---\ntitle: Unsafe\nslug: ../../unsafe\ndescription: Invalid slug.\nstatus: published\n---\n\nContenido.\n`);
+  await assert.rejects(
+    renderPublishedPosts({ postsDir: root, publicBlogDir: path.join(root, 'public-blog'), siteUrl: 'https://personaltrainerfuengirola.com' }),
+    /Slug inválido/,
+  );
+});
+
 test('seeds the persistent blog once and preserves later edits', async () => {
   const root = await mkdtemp(path.join(os.tmpdir(), 'personal-blogger-'));
   const releaseBlogDir = path.join(root, 'release-blog');

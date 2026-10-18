@@ -1,7 +1,8 @@
-import { cp, mkdir, readdir, readFile, stat, writeFile } from 'node:fs/promises';
+import { cp, mkdir, readdir, readFile, rm, stat, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 
 const FRONTMATTER_RE = /^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/;
+const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
 export function authorizeBuildRequest(authorization, secret) {
   if (!secret) return false;
@@ -51,12 +52,14 @@ export async function renderPublishedPosts({ postsDir, publicBlogDir, siteUrl, b
   for (const file of files.filter((entry) => entry.endsWith('.md')).sort()) {
     const source = await readFile(path.join(postsDir, file), 'utf8');
     const { meta, body } = parsePost(source);
+    const slug = String(meta.slug || file.replace(/\.md$/, '')).trim();
+    if (!SLUG_RE.test(slug)) throw new Error(`Slug inválido: ${slug}`);
     if (String(meta.status || 'draft').toLowerCase() !== 'published') {
+      await rm(path.join(publicBlogDir, slug), { recursive: true, force: true });
       skipped += 1;
       continue;
     }
 
-    const slug = String(meta.slug || file.replace(/\.md$/, '')).trim();
     const targetDir = path.join(publicBlogDir, slug);
     await mkdir(targetDir, { recursive: true });
     await writeFile(
