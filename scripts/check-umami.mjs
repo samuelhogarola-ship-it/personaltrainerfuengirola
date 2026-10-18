@@ -60,8 +60,8 @@ assert(
 
 const renderScript = read("scripts/render-umami-config.sh");
 assert(
-  renderScript.includes('UMAMI_WEBSITE_ID="${UMAMI_WEBSITE_ID:-}"'),
-  "Render script must allow missing UMAMI_WEBSITE_ID without failing",
+  renderScript.includes('UMAMI_WEBSITE_ID="${UMAMI_WEBSITE_ID:-f712523b-142d-4e87-a2d8-8d09876a04ec}"'),
+  "Render script must preserve the production ID without an environment override",
 );
 
 const siteJs = read("site.js");

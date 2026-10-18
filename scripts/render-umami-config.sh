@@ -7,7 +7,7 @@ output_path="${UMAMI_CONFIG_OUTPUT:-umami-config.json}"
 
 UMAMI_SCRIPT_URL="${UMAMI_SCRIPT_URL:-${personal_host}/script.js}"
 UMAMI_HOST_URL="${UMAMI_HOST_URL:-${personal_host}}"
-UMAMI_WEBSITE_ID="${UMAMI_WEBSITE_ID:-}"
+UMAMI_WEBSITE_ID="${UMAMI_WEBSITE_ID:-f712523b-142d-4e87-a2d8-8d09876a04ec}"
 
 if [ "$UMAMI_SCRIPT_URL" != "${personal_host}/script.js" ]; then
   echo 'UMAMI_SCRIPT_URL must point to the personal Umami instance' >&2

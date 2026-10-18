@@ -6,6 +6,8 @@
   "use strict";
 
   var DEFAULT_SCRIPT_SRC = "https://analytics.187.124.55.36.sslip.io/script.js";
+  var PERSONAL_HOST = "https://analytics.187.124.55.36.sslip.io";
+  var PRODUCTION_DOMAINS = "personaltrainerfuengirola.com,www.personaltrainerfuengirola.com";
   var PLACEHOLDER_WEBSITE_IDS = {
     "": true,
     REPLACE_WITH_UMAMI_WEBSITE_ID: true,
@@ -19,8 +21,16 @@
     return !!(
       _config &&
       _config.websiteId &&
+      /^[A-Za-z0-9_-]{8,128}$/.test(_config.websiteId) &&
       !PLACEHOLDER_WEBSITE_IDS[_config.websiteId]
     );
+  }
+
+  function canTrack() {
+    return hasValidWebsiteId() &&
+      PRODUCTION_DOMAINS.split(',').indexOf(window.location.hostname) !== -1 &&
+      (!_config.hostUrl || _config.hostUrl === PERSONAL_HOST) &&
+      (!_config.scriptSrc || _config.scriptSrc === DEFAULT_SCRIPT_SRC);
   }
 
   function logMissingConfig() {
@@ -30,6 +40,7 @@
   }
 
   function flushQueue() {
+    if (!canTrack()) return;
     if (!window.umami || typeof window.umami.track !== "function") return;
     while (_queue.length) {
       var item = _queue.shift();
@@ -40,7 +51,7 @@
 
   function loadScript() {
     if (!_initialized) return;
-    if (!hasValidWebsiteId()) {
+    if (!canTrack()) {
       logMissingConfig();
       return;
     }
@@ -58,7 +69,7 @@
     script.src = _config.scriptSrc || DEFAULT_SCRIPT_SRC;
 
     if (_config.hostUrl) script.dataset.hostUrl = _config.hostUrl;
-    if (_config.domains) script.dataset.domains = _config.domains;
+    script.dataset.domains = PRODUCTION_DOMAINS;
     if (_config.autoTrack === false) script.dataset.autoTrack = "false";
 
     script.addEventListener("load", flushQueue);
@@ -72,7 +83,7 @@
     if (_initialized) return;
     _config = config || {};
     _initialized = true;
-    if (!hasValidWebsiteId()) {
+    if (!canTrack()) {
       _queue = [];
       logMissingConfig();
       return;
@@ -93,6 +104,8 @@
       _queue.push({ eventName: eventName, params: params || {} });
       return;
     }
+
+    if (!canTrack()) return;
 
     if (window.umami && typeof window.umami.track === "function") {
       window.umami.track(eventName, params || {});
@@ -116,6 +129,7 @@
       _queue.push({ pageview: pageview });
       return;
     }
+    if (!canTrack()) return;
     if (window.umami && typeof window.umami.track === "function") {
       window.umami.track(pageview);
       return;

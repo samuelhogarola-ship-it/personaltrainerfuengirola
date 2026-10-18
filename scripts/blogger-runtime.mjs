@@ -1,8 +1,12 @@
-import { cp, mkdir, readdir, readFile, rm, stat, writeFile } from 'node:fs/promises';
+import { mkdir, readdir, readFile, rm, writeFile, rename, lstat } from 'node:fs/promises';
+import { createHash, randomUUID } from 'node:crypto';
 import path from 'node:path';
 
 const FRONTMATTER_RE = /^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/;
 const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+const BLOCK_RE = /<!-- BLOGGER:START -->[\s\S]*?<!-- BLOGGER:END -->/g;
+const MEDIA_RE = /\.(?:avif|gif|ico|jpe?g|png|svg|webp|woff2?|ttf|mp4|webm|pdf)$/i;
+const PUBLIC_FILES = new Set(['index.html', 'styles.css', 'site.js', 'umami-analytics.js', 'umami-analytics-core.js', 'umami-config.json', 'robots.txt', 'sitemap.xml', 'favicon.png', 'apple-touch-icon.png']);
 
 export function authorizeBuildRequest(authorization, secret) {
   if (!secret) return false;
@@ -14,17 +18,48 @@ export async function prepareContentRoot({ contentRoot, releaseBlogDir, releaseS
   const publicBlogDir = path.join(contentRoot, 'blog');
   const sitemapPath = path.join(contentRoot, 'sitemap.xml');
   await mkdir(postsDir, { recursive: true });
-  await mergeMissingTree(releaseBlogDir, publicBlogDir);
-  if (releaseSitemapPath && !(await exists(sitemapPath))) {
-    await cp(releaseSitemapPath, sitemapPath);
+  const state = await readState(publicBlogDir);
+  const releaseFiles = await collectReleaseFiles(releaseBlogDir, 'blog');
+  if (releaseSitemapPath) releaseFiles.set('sitemap.xml', await readFile(releaseSitemapPath));
+  const nextRelease = {};
+  for (const [relative, contents] of releaseFiles) {
+    const target = path.join(contentRoot, relative);
+    await assertNoSymlinks(contentRoot, target);
+    const current = await readOptional(target);
+    const aggregate = relative === 'blog/index.html' || relative === 'sitemap.xml';
+    const base = aggregate && current ? stripBlock(current.toString()) : current;
+    const releaseBase = aggregate ? stripBlock(contents.toString()) : contents;
+    const oldHash = state.release[relative];
+    if (!current || (oldHash && hash(base) === oldHash)) {
+      const oldBlock = aggregate && current ? current.toString().match(/<!-- BLOGGER:START -->[\s\S]*?<!-- BLOGGER:END -->/)?.[0] : null;
+      const output = oldBlock ? insertBlock(String(releaseBase), oldBlock, relative === 'sitemap.xml') : releaseBase;
+      await atomicWrite(target, output);
+    }
+    nextRelease[relative] = hash(releaseBase);
   }
+  // Only remove obsolete release files that are still byte-identical to our last release.
+  for (const [relative, digest] of Object.entries(state.release)) {
+    if (releaseFiles.has(relative)) continue;
+    const target = path.join(contentRoot, relative);
+    await assertNoSymlinks(contentRoot, target);
+    const current = await readOptional(target);
+    if (current && hash(current) === digest) await rm(target);
+  }
+  state.release = nextRelease;
+  await saveState(publicBlogDir, state);
   return { postsDir, publicBlogDir, sitemapPath };
 }
 
 export function resolveStaticFile(requestPath, { siteRoot, publicBlogDir, sitemapPath }) {
-  const decoded = decodeURIComponent(String(requestPath || '/'));
-  if (decoded.includes('..')) return null;
-  if (/^\/(?:blog-posts|site-data)(?:\/|$)/.test(decoded)) return null;
+  let decoded;
+  try { decoded = decodeURIComponent(String(requestPath || '/')); } catch { return null; }
+  if (!decoded.startsWith('/') || decoded.includes('\\') || decoded.includes('\0') || decoded.split('/').some(part => part.startsWith('.'))) return null;
+  const relativeUrl = decoded.slice(1);
+  const isBlog = decoded === '/blog' || decoded.startsWith('/blog/');
+  const isPage = /^\/(?:en\/|fi\/)?(?:blog(?:\/[a-z0-9-]+)?|legal|precios|preguntas-frecuentes|sobre-garcia|servicios\/[a-z0-9-]+)(?:\/index\.html|\/)?$/.test(decoded)
+    || /^\/(?:en|fi)(?:\/index\.html|\/)?$/.test(decoded);
+  const isMedia = MEDIA_RE.test(decoded) && (/^\/(?:assets\/|legal\/assets\/)/.test(decoded) || isBlog);
+  if (decoded !== '/' && !PUBLIC_FILES.has(relativeUrl) && !isPage && !isMedia) return null;
   if (decoded === '/sitemap.xml' && sitemapPath) return path.resolve(sitemapPath);
 
   const base = decoded === '/blog' || decoded.startsWith('/blog/')
@@ -45,36 +80,58 @@ export async function renderPublishedPosts({ postsDir, publicBlogDir, siteUrl, b
     if (error.code === 'ENOENT') return [];
     throw error;
   });
-  let published = 0;
   let skipped = 0;
-  const publishedPosts = [];
+  const posts = [];
+  const slugs = new Set();
+  const state = await readState(publicBlogDir);
 
   for (const file of files.filter((entry) => entry.endsWith('.md')).sort()) {
     const source = await readFile(path.join(postsDir, file), 'utf8');
     const { meta, body } = parsePost(source);
     const slug = String(meta.slug || file.replace(/\.md$/, '')).trim();
     if (!SLUG_RE.test(slug)) throw new Error(`Slug inválido: ${slug}`);
+    if (slugs.has(slug)) throw new Error(`Duplicate slug: ${slug}`);
+    slugs.add(slug);
+    meta.slug = slug;
     if (String(meta.status || 'draft').toLowerCase() !== 'published') {
-      await rm(path.join(publicBlogDir, slug), { recursive: true, force: true });
       skipped += 1;
       continue;
     }
-
-    const targetDir = path.join(publicBlogDir, slug);
-    await mkdir(targetDir, { recursive: true });
-    await writeFile(
-      path.join(targetDir, 'index.html'),
-      renderPostHtml(meta, body, siteUrl),
-      'utf8',
-    );
-    publishedPosts.push(meta);
-    published += 1;
+    const target = path.join(publicBlogDir, slug, 'index.html');
+    await assertNoSymlinks(publicBlogDir, target);
+    const current = await readOptional(target);
+    if (current && (!Object.hasOwn(state.generated, slug) || hash(current) !== state.generated[slug])) {
+      throw new Error(`Existing article collision: ${slug}`);
+    }
+    posts.push({ meta, html: renderPostHtml(meta, body, siteUrl), target });
   }
 
-  if (blogIndexPath) await updateBlogIndex(blogIndexPath, publishedPosts);
-  if (sitemapPath) await updateSitemap(sitemapPath, publishedPosts, siteUrl);
-
-  return { published, skipped };
+  // Validate every input and removal before changing public files.
+  const publishedPosts = posts.map(post => post.meta);
+  const active = new Set(publishedPosts.map(meta => meta.slug));
+  const obsolete = [];
+  for (const [slug, digest] of Object.entries(state.generated)) {
+    if (active.has(slug)) continue;
+    const target = path.join(publicBlogDir, slug, 'index.html');
+    await assertNoSymlinks(publicBlogDir, target);
+    const current = await readOptional(target);
+    if (current && hash(current) !== digest) throw new Error(`Editorial changes prevent removal: ${slug}`);
+    if (current) obsolete.push(target);
+  }
+  const index = blogIndexPath ? await updateBlogIndex(blogIndexPath, publishedPosts) : null;
+  const sitemap = sitemapPath ? await updateSitemap(sitemapPath, publishedPosts, siteUrl) : null;
+  const generated = {};
+  for (const post of posts) {
+    await atomicWrite(post.target, post.html);
+    generated[post.meta.slug] = hash(post.html);
+  }
+  // Never recursively remove a slug: Studio uploads belong to the editor.
+  for (const target of obsolete) await rm(target, { force: true });
+  if (blogIndexPath) await atomicWrite(blogIndexPath, index);
+  if (sitemapPath) await atomicWrite(sitemapPath, sitemap);
+  state.generated = generated;
+  await saveState(publicBlogDir, state);
+  return { published: posts.length, skipped };
 }
 
 function parsePost(source) {
@@ -152,12 +209,9 @@ async function updateBlogIndex(indexPath, posts) {
     .sort((a, b) => String(b.date || '').localeCompare(String(a.date || '')))
     .map((meta) => `<article class="blog-card reveal"><span class="tag">${escapeHtml(meta.category || 'Entrenamiento')}</span><h3><a href="/blog/${escapeHtml(meta.slug)}/">${escapeHtml(meta.title)}</a></h3><p>${escapeHtml(meta.description)}</p></article>`)
     .join('\n');
-  let html = await readFile(indexPath, 'utf8');
+  const html = await readFile(indexPath, 'utf8');
   const block = `${start}\n${cards}\n${end}`;
-  const pattern = new RegExp(`${escapeRegExp(start)}[\\s\\S]*?${escapeRegExp(end)}`);
-  if (pattern.test(html)) html = html.replace(pattern, block);
-  else html = html.replace('</div>', `${block}\n</div>`);
-  await writeFile(indexPath, html, 'utf8');
+  return insertBlock(stripBlock(html), block, false);
 }
 
 async function updateSitemap(sitemapPath, posts, siteUrl) {
@@ -167,16 +221,19 @@ async function updateSitemap(sitemapPath, posts, siteUrl) {
   const urls = posts
     .map((meta) => `  <url><loc>${origin}/blog/${escapeHtml(meta.slug)}/</loc><lastmod>${escapeHtml(meta.date || new Date().toISOString().slice(0, 10))}</lastmod></url>`)
     .join('\n');
-  let xml = await readFile(sitemapPath, 'utf8');
+  const xml = await readFile(sitemapPath, 'utf8');
   const block = `${start}\n${urls}\n${end}`;
-  const pattern = new RegExp(`${escapeRegExp(start)}[\\s\\S]*?${escapeRegExp(end)}`);
-  if (pattern.test(xml)) xml = xml.replace(pattern, block);
-  else xml = xml.replace('</urlset>', `${block}\n</urlset>`);
-  await writeFile(sitemapPath, xml, 'utf8');
+  return insertBlock(stripBlock(xml), block, true);
 }
 
-function escapeRegExp(value) {
-  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+function stripBlock(text) {
+  return text.replace(BLOCK_RE, '');
+}
+
+function insertBlock(text, block, sitemap) {
+  const anchor = sitemap ? '</urlset>' : '<div class="blog-grid">';
+  if (!text.includes(anchor)) throw new Error(`Missing publication anchor: ${anchor}`);
+  return text.replace(anchor, () => sitemap ? `${block}${anchor}` : `${anchor}${block}`);
 }
 
 function escapeHtml(value) {
@@ -188,22 +245,72 @@ function escapeHtml(value) {
     .replace(/'/g, '&#39;');
 }
 
-async function exists(filePath) {
+async function readOptional(filePath) {
   try {
-    await stat(filePath);
-    return true;
+    return await readFile(filePath);
   } catch (error) {
-    if (error.code === 'ENOENT') return false;
+    if (error.code === 'ENOENT') return null;
     throw error;
   }
 }
 
-async function mergeMissingTree(sourceDir, targetDir) {
-  await mkdir(targetDir, { recursive: true });
+async function collectReleaseFiles(sourceDir, prefix, files = new Map()) {
   for (const entry of await readdir(sourceDir, { withFileTypes: true })) {
     const source = path.join(sourceDir, entry.name);
-    const target = path.join(targetDir, entry.name);
-    if (entry.isDirectory()) await mergeMissingTree(source, target);
-    else if (entry.isFile() && !(await exists(target))) await cp(source, target);
+    const relative = `${prefix}/${entry.name}`;
+    if (entry.isDirectory()) await collectReleaseFiles(source, relative, files);
+    else if (entry.isFile()) files.set(relative, await readFile(source));
+  }
+  return files;
+}
+
+function hash(contents) {
+  return createHash('sha256').update(contents).digest('hex');
+}
+
+function statePath(publicBlogDir) {
+  return path.join(publicBlogDir, '..', '.blogger-state.json');
+}
+
+async function readState(publicBlogDir) {
+  const contents = await readOptional(statePath(publicBlogDir));
+  if (!contents) return { version: 1, release: {}, generated: {} };
+  const state = JSON.parse(contents);
+  if (state.version !== 1 || !state.release || !state.generated) throw new Error('Invalid Blogger state');
+  for (const [file, digest] of Object.entries(state.release)) {
+    if ((!file.startsWith('blog/') && file !== 'sitemap.xml') || file.split('/').some(p => !p || p.startsWith('.')) || file.includes('\\') || !/^[a-f0-9]{64}$/.test(digest)) throw new Error('Invalid release manifest');
+  }
+  for (const [slug, digest] of Object.entries(state.generated)) {
+    if (!SLUG_RE.test(slug) || !/^[a-f0-9]{64}$/.test(digest)) throw new Error('Invalid generated manifest');
+  }
+  return state;
+}
+
+async function saveState(publicBlogDir, state) {
+  await atomicWrite(statePath(publicBlogDir), JSON.stringify(state, null, 2));
+}
+
+async function atomicWrite(target, contents) {
+  await mkdir(path.dirname(target), { recursive: true });
+  const temporary = `${target}.${randomUUID()}.tmp`;
+  try {
+    await writeFile(temporary, contents, { flag: 'wx' });
+    await rename(temporary, target);
+  } finally {
+    await rm(temporary, { force: true });
+  }
+}
+
+async function assertNoSymlinks(root, target) {
+  let current = path.resolve(root);
+  const relative = path.relative(current, target);
+  if (relative.startsWith('..') || path.isAbsolute(relative)) throw new Error('Path outside content root');
+  for (const part of ['', ...relative.split(path.sep)]) {
+    current = path.join(current, part);
+    try {
+      if ((await lstat(current)).isSymbolicLink()) throw new Error(`Symlink in content path: ${current}`);
+    } catch (error) {
+      if (error.code !== 'ENOENT') throw error;
+    }
   }
 }

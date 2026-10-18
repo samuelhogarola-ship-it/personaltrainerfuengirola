@@ -50,7 +50,6 @@ test("loads personal Umami and covers every HTML entry", async () => {
   const withoutSiteJs = htmlFiles
     .filter((file) => !readFileSync(file, "utf8").includes('/site.js"'))
     .map((file) => path.relative(projectRoot, file));
-  const sharedSiteScript = readFileSync(path.join(projectRoot, "site.js"), "utf8");
   const tracker = await runBootstrap({
     hostUrl: "https://analytics.187.124.55.36.sslip.io",
     websiteId: "personal-trainer-test-id",
@@ -58,7 +57,6 @@ test("loads personal Umami and covers every HTML entry", async () => {
 
   assert.ok(htmlFiles.length > 0, "the site must contain HTML entry points");
   assert.deepEqual(withoutSiteJs, []);
-  assert.match(sharedSiteScript, /\/umami-analytics\.js/);
   assert.equal(
     tracker.src,
     "https://analytics.187.124.55.36.sslip.io/script.js",

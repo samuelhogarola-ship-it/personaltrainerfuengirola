@@ -32,32 +32,63 @@ Pure HTML, CSS and a tiny JS helper for scroll reveal and footer year.
 
 ## Deploy
 
-Production runs as a Node container in Coolify. The container serves the static
-site, keeps Blogger content in the persistent volume mounted at
+Production remains on Hostinger; the migration to Coolify is pending. The
+proposed Node container serves the static site, keeps Blogger content in the persistent volume mounted at
 `/app/site-data`, and exposes `/health` plus the protected
 `POST /api/blogger/build` hook.
 
-Required Coolify variables:
+Coolify configuration for the future migration:
 
 - `BLOGGER_BUILD_SECRET`: shared only with WF Studio.
-- `UMAMI_WEBSITE_ID`: `f712523b-142d-4e87-a2d8-8d09876a04ec`.
+- `UMAMI_WEBSITE_ID`: defaults to the active public ID
+  `f712523b-142d-4e87-a2d8-8d09876a04ec` if unset or empty.
 
 Mount the host directory `/data/personal-trainer/site-data` at
 `/app/site-data`. WF Studio must mount the same host directory and register it
 as the root for `personaltrainerfuengirola`.
 
+The volume also contains `sitemap.xml` and `.blogger-state.json`. Back up the
+entire volume, including this private ownership manifest and uploaded media.
+Keep a single site writer/replica for this shared volume; build requests within
+that process are serialized. Coordinate deployment with Studio publishing.
+
+At startup, release-owned files are refreshed only if they still match their
+previous release checksum. Manual edits are preserved. The Spanish blog index
+and sitemap retain the Blogger section while accepting updated release content,
+including the scheduled ES/EN/FI URLs. English and Finnish pages come directly
+from the image. Published Studio posts are reconciled again before serving.
+
+Unpublishing, deleting, or renaming a source removes only its previously
+generated `index.html`; uploaded media is retained. Renamed URLs return 404,
+without an automatic redirect. A source cannot overwrite a legacy article or
+an independently edited generated page: the build fails before publication so
+the editor can resolve the collision. Slugs must be unique; if omitted, the
+Markdown filename supplies the slug consistently for the page and its URLs.
+
+An existing volume without a manifest is adopted conservatively: unknown files
+are preserved, not assumed to be generated. Before migration, reconcile any
+pre-existing generated pages with Studio and back them up; a collision requires
+explicit editorial resolution. Do not delete the manifest to bypass a conflict.
+This local runtime preparation does not deploy, change DNS, or modify Hostinger.
+
 ### Umami analytics
 
-The site loads `/umami-analytics-core.js` before `/site.js` on every page. The loader fetches `/umami-config.json` and remains inert when `websiteId` is missing, so no real Umami website ID is hardcoded in the repository.
+The site loads `/umami-analytics-core.js` before `/site.js` on every page. Only
+this core installs the tracker; `site.js` no longer injects the legacy bootstrap.
+The loader fetches `/umami-config.json` and only tracks on
+`personaltrainerfuengirola.com` and `www.personaltrainerfuengirola.com`, using the
+personal Umami host. The real website ID is intentionally committed as public
+configuration. Missing or invalid browser configuration remains inert; the
+container renderer preserves the active production ID when no override is set.
 
-Set `UMAMI_WEBSITE_ID` to the website ID from the Umami Life instance before
-running the renderer. For this site the current public ID is:
+To render the same configuration explicitly, use the current public ID:
 
 ```sh
 UMAMI_WEBSITE_ID=f712523b-142d-4e87-a2d8-8d09876a04ec ./scripts/render-umami-config.sh
 ```
 
-Optional variables are `UMAMI_SCRIPT_URL` and `UMAMI_HOST_URL`; both default to the personal Umami instance used by Web Fuengirola.
+`UMAMI_SCRIPT_URL` and `UMAMI_HOST_URL` default to the personal Umami instance
+used by Web Fuengirola; the renderer rejects other hosts.
 
 ## Contact
 

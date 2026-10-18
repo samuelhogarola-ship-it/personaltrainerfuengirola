@@ -34,7 +34,7 @@ async function loadCore() {
       return scripts[0] || null;
     },
   };
-  const window = { location: { pathname: '/blog/' } };
+  const window = { location: { pathname: '/blog/', hostname: 'personaltrainerfuengirola.com' } };
   vm.runInNewContext(source, { window, document, console });
   return { api: window.UmamiAnalyticsCore, document, listeners, scripts, window };
 }

@@ -1,5 +1,5 @@
 import { createReadStream } from 'node:fs';
-import { stat } from 'node:fs/promises';
+import { stat, realpath } from 'node:fs/promises';
 import { createServer } from 'node:http';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -22,6 +22,13 @@ const { postsDir, publicBlogDir, sitemapPath } = await prepareContentRoot({
   releaseBlogDir: path.join(siteRoot, 'blog'),
   releaseSitemapPath: path.join(siteRoot, 'sitemap.xml'),
 });
+const buildOptions = {
+  postsDir, publicBlogDir, sitemapPath,
+  siteUrl: 'https://personaltrainerfuengirola.com',
+  blogIndexPath: path.join(publicBlogDir, 'index.html'),
+};
+await renderPublishedPosts(buildOptions);
+let buildQueue = Promise.resolve();
 
 const server = createServer(async (request, response) => {
   try {
@@ -34,13 +41,9 @@ const server = createServer(async (request, response) => {
       if (!authorizeBuildRequest(request.headers.authorization || '', process.env.BLOGGER_BUILD_SECRET || '')) {
         return json(response, 401, { error: 'Unauthorized' });
       }
-      const result = await renderPublishedPosts({
-        postsDir,
-        publicBlogDir,
-        siteUrl: 'https://personaltrainerfuengirola.com',
-        blogIndexPath: path.join(publicBlogDir, 'index.html'),
-        sitemapPath,
-      });
+      const build = buildQueue.then(() => renderPublishedPosts(buildOptions));
+      buildQueue = build.catch(() => {});
+      const result = await build;
       return json(response, 200, { ok: true, ...result });
     }
 
@@ -48,8 +51,23 @@ const server = createServer(async (request, response) => {
       return json(response, 405, { error: 'Method not allowed' });
     }
 
+    const legacy = url.pathname.match(/^\/(en\/|fi\/)?sobre-sorvali\/?$/);
+    const destination = legacy ? `/${legacy[1] || ''}sobre-garcia/`
+      : url.pathname.endsWith('/index.html') ? url.pathname.slice(0, -10) : null;
+    if (destination && !destination.startsWith('//')) {
+      response.writeHead(301, { Location: destination + url.search });
+      return response.end();
+    }
+
     const filePath = resolveStaticFile(url.pathname, { siteRoot, publicBlogDir, sitemapPath });
     if (!filePath) return json(response, 404, { error: 'Not found' });
+    // Disallow symlinks inside either public root, including links to private files.
+    const root = filePath === sitemapPath ? contentRoot
+      : filePath.startsWith(`${publicBlogDir}${path.sep}`) ? publicBlogDir : siteRoot;
+    const resolvedRoot = await realpath(root);
+    if (await realpath(filePath) !== path.join(resolvedRoot, path.relative(root, filePath))) {
+      return json(response, 404, { error: 'Not found' });
+    }
     const fileStat = await stat(filePath);
     if (!fileStat.isFile()) return json(response, 404, { error: 'Not found' });
     response.writeHead(200, {
@@ -58,7 +76,7 @@ const server = createServer(async (request, response) => {
       'X-Content-Type-Options': 'nosniff',
     });
     if (request.method === 'HEAD') return response.end();
-    createReadStream(filePath).pipe(response);
+    createReadStream(filePath).on('error', error => response.destroy(error)).pipe(response);
   } catch (error) {
     if (error.code === 'ENOENT') return json(response, 404, { error: 'Not found' });
     console.error(error);
